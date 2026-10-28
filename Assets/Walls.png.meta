@@ -1,0 +1,949 @@
+fileFormatVersion: 2
+guid: 7ecc18e4ef2f83443ac5d9cd147af978
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -3526945169831017560
+    second: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_0"
+  - first:
+      213: 7567403449408530796
+    second: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_1"
+  - first:
+      213: 2962340990250594867
+    second: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_2"
+  - first:
+      213: 2424885759652789853
+    second: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_3"
+  - first:
+      213: 4853831368672896814
+    second: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_4"
+  - first:
+      213: 6374704038204865546
+    second: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_5"
+  - first:
+      213: 7467837362669337301
+    second: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_6"
+  - first:
+      213: -3797468980271202789
+    second: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_7"
+  - first:
+      213: -1314221566540770837
+    second: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_8"
+  - first:
+      213: -4886898452109659633
+    second: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_9"
+  - first:
+      213: 5045349086594333303
+    second: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_10"
+  - first:
+      213: -7161678415567471423
+    second: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_11"
+  - first:
+      213: 8819943107777358815
+    second: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_12"
+  - first:
+      213: 3263721737552377680
+    second: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_13"
+  - first:
+      213: -6667530904231220381
+    second: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_14"
+  - first:
+      213: -1868911006548403790
+    second: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_15"
+  - first:
+      213: -2929463020393764394
+    second: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_16"
+  - first:
+      213: -5746016175158270063
+    second: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_17"
+  - first:
+      213: -7506530354630715164
+    second: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_18"
+  - first:
+      213: 1822964800828894170
+    second: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_19"
+  - first:
+      213: 5628734622769369249
+    second: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_20"
+  - first:
+      213: -4909720044165800615
+    second: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_21"
+  - first:
+      213: 8350091957989979380
+    second: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_22"
+  - first:
+      213: -7699756059313455890
+    second: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_23"
+  - first:
+      213: -7197750288216394344
+    second: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_24"
+  - first:
+      213: 8526991609383201392
+    second: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_25"
+  - first:
+      213: 2344910883529217974
+    second: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_26"
+  - first:
+      213: -589481267202652586
+    second: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_27"
+  - first:
+      213: -1444864731977584637
+    second: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_28"
+  - first:
+      213: -6621964606663538749
+    second: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_29"
+  - first:
+      213: -3880831904712970214
+    second: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_30"
+  - first:
+      213: 4312622847292028088
+    second: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_31"
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_0"
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 994
+        width: 233
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a341f9fd06cd0fc0800000000000000
+      internalID: -3526945169831017560
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_1"
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 996
+        width: 57
+        height: 228
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c69af0ae751d40960800000000000000
+      internalID: 7567403449408530796
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_2"
+      rect:
+        serializedVersion: 2
+        x: 466
+        y: 986
+        width: 94
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 332377b7f695c1920800000000000000
+      internalID: 2962340990250594867
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_3"
+      rect:
+        serializedVersion: 2
+        x: 530
+        y: 1002
+        width: 14
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d5ef10530cce6a120800000000000000
+      internalID: 2424885759652789853
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_4"
+      rect:
+        serializedVersion: 2
+        x: 625
+        y: 640
+        width: 158
+        height: 586
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e276561c9e54c5340800000000000000
+      internalID: 4853831368672896814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_5"
+      rect:
+        serializedVersion: 2
+        x: 796
+        y: 272
+        width: 439
+        height: 926
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a0cf2715c8f777850800000000000000
+      internalID: 6374704038204865546
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_6"
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 411
+        width: 586
+        height: 495
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5dabb4ad38613a760800000000000000
+      internalID: 7467837362669337301
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_7"
+      rect:
+        serializedVersion: 2
+        x: 818
+        y: 720
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b1ebe51151eac4bc0800000000000000
+      internalID: -3797468980271202789
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_8"
+      rect:
+        serializedVersion: 2
+        x: 802
+        y: 648
+        width: 13
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be11e22c272f2cde0800000000000000
+      internalID: -1314221566540770837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_9"
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 602
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f02f89cefbf3e2cb0800000000000000
+      internalID: -4886898452109659633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_10"
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 610
+        width: 15
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 77afb4a434ea40640800000000000000
+      internalID: 5045349086594333303
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_11"
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 81
+        width: 373
+        height: 485
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ccb48cdc6b9c9c90800000000000000
+      internalID: -7161678415567471423
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_12"
+      rect:
+        serializedVersion: 2
+        x: 518
+        y: 132
+        width: 331
+        height: 437
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fdb6936c68bb66a70800000000000000
+      internalID: 8819943107777358815
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_13"
+      rect:
+        serializedVersion: 2
+        x: 868
+        y: 119
+        width: 355
+        height: 436
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 057b78cd0a11b4d20800000000000000
+      internalID: 3263721737552377680
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_14"
+      rect:
+        serializedVersion: 2
+        x: 1160
+        y: 552
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 36beb5cf7fb2873a0800000000000000
+      internalID: -6667530904231220381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_15"
+      rect:
+        serializedVersion: 2
+        x: 1157
+        y: 369
+        width: 26
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b95dd9675b4016e0800000000000000
+      internalID: -1868911006548403790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_16"
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 266
+        width: 46
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d969c667e47857d0800000000000000
+      internalID: -2929463020393764394
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_17"
+      rect:
+        serializedVersion: 2
+        x: 1147
+        y: 337
+        width: 26
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 197ea0e7bbc0240b0800000000000000
+      internalID: -5746016175158270063
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_18"
+      rect:
+        serializedVersion: 2
+        x: 1155
+        y: 320
+        width: 24
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4e89c8ce96273d790800000000000000
+      internalID: -7506530354630715164
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_19"
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 306
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: adb627fe3d87c4910800000000000000
+      internalID: 1822964800828894170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_20"
+      rect:
+        serializedVersion: 2
+        x: 820
+        y: 304
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1a05c1d21584d1e40800000000000000
+      internalID: 5628734622769369249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_21"
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 178
+        width: 86
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 95dd1e4f1ab2ddbb0800000000000000
+      internalID: -4909720044165800615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_22"
+      rect:
+        serializedVersion: 2
+        x: 495
+        y: 240
+        width: 27
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f4b6d5256c71e370800000000000000
+      internalID: 8350091957989979380
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_23"
+      rect:
+        serializedVersion: 2
+        x: 520
+        y: 245
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eecb57bb8a8f42590800000000000000
+      internalID: -7699756059313455890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_24"
+      rect:
+        serializedVersion: 2
+        x: 522
+        y: 240
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 89575e88f347c1c90800000000000000
+      internalID: -7197750288216394344
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_25"
+      rect:
+        serializedVersion: 2
+        x: 697
+        y: 170
+        width: 22
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07aa508d0b5f55670800000000000000
+      internalID: 8526991609383201392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_26"
+      rect:
+        serializedVersion: 2
+        x: 719
+        y: 168
+        width: 18
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6b7d4b2560cca8020800000000000000
+      internalID: 2344910883529217974
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_27"
+      rect:
+        serializedVersion: 2
+        x: 201
+        y: 150
+        width: 26
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 65683a229edb1d7f0800000000000000
+      internalID: -589481267202652586
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_28"
+      rect:
+        serializedVersion: 2
+        x: 239
+        y: 160
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3007cf57e2fc2fbe0800000000000000
+      internalID: -1444864731977584637
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_29"
+      rect:
+        serializedVersion: 2
+        x: 715
+        y: 162
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c74c90664e0a14a0800000000000000
+      internalID: -6621964606663538749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_30"
+      rect:
+        serializedVersion: 2
+        x: 1021
+        y: 162
+        width: 15
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a10b496b1f3842ac0800000000000000
+      internalID: -3880831904712970214
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_31"
+      rect:
+        serializedVersion: 2
+        x: 1145
+        y: 152
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b4331f51a389db30800000000000000
+      internalID: 4312622847292028088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_0": -3526945169831017560
+      "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_1": 7567403449408530796
+      "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_10": 5045349086594333303
+      "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_11": -7161678415567471423
+      "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_12": 8819943107777358815
+      "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_13": 3263721737552377680
+      "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_14": -6667530904231220381
+      "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_15": -1868911006548403790
+      "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_16": -2929463020393764394
+      "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_17": -5746016175158270063
+      "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_18": -7506530354630715164
+      "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_19": 1822964800828894170
+      "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_2": 2962340990250594867
+      "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_20": 5628734622769369249
+      "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_21": -4909720044165800615
+      "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_22": 8350091957989979380
+      "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_23": -7699756059313455890
+      "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_24": -7197750288216394344
+      "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_25": 8526991609383201392
+      "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_26": 2344910883529217974
+      "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_27": -589481267202652586
+      "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_28": -1444864731977584637
+      "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_29": -6621964606663538749
+      "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_3": 2424885759652789853
+      "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_30": -3880831904712970214
+      "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_31": 4312622847292028088
+      "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_4": 4853831368672896814
+      "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_5": 6374704038204865546
+      "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_6": 7467837362669337301
+      "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_7": -3797468980271202789
+      "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_8": -1314221566540770837
+      "Obr\xE1zok ChatGPT 20. 10. 2026, 22_59_30_9": -4886898452109659633
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
