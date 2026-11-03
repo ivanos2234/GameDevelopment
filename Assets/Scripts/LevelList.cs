@@ -1,0 +1,24 @@
+using System;
+using System.Collections.Generic;
+using UnityEngine;
+
+/// <summary>The levels shown in the level select, in play order. Each level unlocks once the one before it is cleared.</summary>
+[CreateAssetMenu(menuName = "Ninja Spinner/Level List", fileName = "LevelList")]
+public sealed class LevelList : ScriptableObject
+{
+    [Serializable]
+    public sealed class Entry
+    {
+        public string scene;
+        public string title;
+    }
+
+    [SerializeField] private List<Entry> levels = new();
+
+    public IReadOnlyList<Entry> Levels => levels;
+
+    public bool IsUnlocked(int index)
+    {
+        return index <= 0 || (index < levels.Count && LevelProgress.IsCompleted(levels[index - 1].scene));
+    }
+}

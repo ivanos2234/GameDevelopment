@@ -251,6 +251,7 @@ GameObject:
   - component: {fileID: 5175689789952396533}
   - component: {fileID: 5246451670501928713}
   - component: {fileID: 1008722474421144528}
+  - component: {fileID: 4951354215209353354}
   m_Layer: 10
   m_Name: MovingEnemy
   m_TagString: Untagged
@@ -323,8 +324,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c885f2b57cf4bc6a0b61a96a9d02c43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth2D
-  maxHealth: 100
+  maxHealth: 60
   healthBarFill: {fileID: 7744364704998803878}
+  hitFlashColor: {r: 1, g: 0.45, b: 0.45, a: 1}
+  hitFlashDuration: 0.1
 --- !u!50 &5246451670501928713
 Rigidbody2D:
   serializedVersion: 5
@@ -373,6 +376,26 @@ MonoBehaviour:
   retreatSpeed: 3.5
   retreatDuration: 0.5
   retreatCooldown: 2
+  obstacleLayers:
+    serializedVersion: 2
+    m_Bits: 1
+  avoidLookAhead: 1.2
+  avoidRadius: 0.4
+  avoidSideHoldTime: 1
+--- !u!114 &4951354215209353354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8256035924390800765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b68c4d79bd49480586b65fec539b401, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyContactDamage2D
+  damage: 1
+  reach: 0.3
 --- !u!1 &9140697192981586107
 GameObject:
   m_ObjectHideFlags: 0

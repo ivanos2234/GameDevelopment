@@ -1,0 +1,142 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &1336773258932237616
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1008722474421144528, guid: 4b2c6a3d9ace4ed4ebb2d57329e2a492, type: 3}
+      propertyPath: chaseSpeed
+      value: 2.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1008722474421144528, guid: 4b2c6a3d9ace4ed4ebb2d57329e2a492, type: 3}
+      propertyPath: strafeSpeed
+      value: 1.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1008722474421144528, guid: 4b2c6a3d9ace4ed4ebb2d57329e2a492, type: 3}
+      propertyPath: fleeDistance
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1008722474421144528, guid: 4b2c6a3d9ace4ed4ebb2d57329e2a492, type: 3}
+      propertyPath: stopDistance
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1151796840872570534, guid: 4b2c6a3d9ace4ed4ebb2d57329e2a492, type: 3}
+      propertyPath: m_Color.g
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1151796840872570534, guid: 4b2c6a3d9ace4ed4ebb2d57329e2a492, type: 3}
+      propertyPath: m_Color.r
+      value: 0.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 5175689789952396533, guid: 4b2c6a3d9ace4ed4ebb2d57329e2a492, type: 3}
+      propertyPath: maxHealth
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 5175689789952396533, guid: 4b2c6a3d9ace4ed4ebb2d57329e2a492, type: 3}
+      propertyPath: deathBurstColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5175689789952396533, guid: 4b2c6a3d9ace4ed4ebb2d57329e2a492, type: 3}
+      propertyPath: deathBurstColor.g
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 5175689789952396533, guid: 4b2c6a3d9ace4ed4ebb2d57329e2a492, type: 3}
+      propertyPath: deathBurstColor.r
+      value: 0.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 6262859583857530870, guid: 4b2c6a3d9ace4ed4ebb2d57329e2a492, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6262859583857530870, guid: 4b2c6a3d9ace4ed4ebb2d57329e2a492, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6262859583857530870, guid: 4b2c6a3d9ace4ed4ebb2d57329e2a492, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6262859583857530870, guid: 4b2c6a3d9ace4ed4ebb2d57329e2a492, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6262859583857530870, guid: 4b2c6a3d9ace4ed4ebb2d57329e2a492, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6262859583857530870, guid: 4b2c6a3d9ace4ed4ebb2d57329e2a492, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6262859583857530870, guid: 4b2c6a3d9ace4ed4ebb2d57329e2a492, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6262859583857530870, guid: 4b2c6a3d9ace4ed4ebb2d57329e2a492, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6262859583857530870, guid: 4b2c6a3d9ace4ed4ebb2d57329e2a492, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6262859583857530870, guid: 4b2c6a3d9ace4ed4ebb2d57329e2a492, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8256035924390800765, guid: 4b2c6a3d9ace4ed4ebb2d57329e2a492, type: 3}
+      propertyPath: m_Name
+      value: GunnerEnemy
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8256035924390800765, guid: 4b2c6a3d9ace4ed4ebb2d57329e2a492, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3219105764159177287}
+  m_SourcePrefab: {fileID: 100100000, guid: 4b2c6a3d9ace4ed4ebb2d57329e2a492, type: 3}
+--- !u!1 &6926106163327588429 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8256035924390800765, guid: 4b2c6a3d9ace4ed4ebb2d57329e2a492, type: 3}
+  m_PrefabInstance: {fileID: 1336773258932237616}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3219105764159177287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6926106163327588429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f90c734029ca3425a93992b6c8967e23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyShooter2D
+  projectilePrefab: {fileID: 8682799756402642424, guid: ffba5da338cbf41e3824a0e92b12ea97, type: 3}
+  playerTarget: {fileID: 0}
+  range: 10
+  fireInterval: 2.4
+  firstShotDelay: 1.5
+  projectileSpeed: 5.5
+  muzzleOffset: 0.6
+  requireLineOfSight: 1
+  lineOfSightBlockers:
+    serializedVersion: 2
+    m_Bits: 1
+  pattern: 1
+  projectileCount: 3
+  spreadAngle: 36
+  ringTurnPerVolley: 22.5
+  telegraphVisual: {fileID: 7171887115971346820}
+  windUpDuration: 0.4
+  windUpScale: 1.25
+--- !u!4 &7171887115971346820 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8145469554140247220, guid: 4b2c6a3d9ace4ed4ebb2d57329e2a492, type: 3}
+  m_PrefabInstance: {fileID: 1336773258932237616}
+  m_PrefabAsset: {fileID: 0}
