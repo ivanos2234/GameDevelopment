@@ -1,6 +1,16 @@
 using UnityEngine;
 
-/// <summary>Fires projectiles at the player while they are in range and not hidden behind a wall.</summary>
+public enum ShotPattern
+{
+    /// <summary>One shot straight at the player.</summary>
+    Aimed,
+    /// <summary>A fan of shots centred on the player.</summary>
+    Spread,
+    /// <summary>Shots in every direction; the ring turns a little after each volley.</summary>
+    Ring,
+}
+
+/// <summary>Fires projectiles while the player is in range and, unless disabled, not hidden behind a wall.</summary>
 public sealed class EnemyShooter2D : MonoBehaviour
 {
     [SerializeField] private EnemyProjectile2D projectilePrefab;
@@ -12,8 +22,19 @@ public sealed class EnemyShooter2D : MonoBehaviour
     [SerializeField, Min(0f)] private float firstShotDelay = 1.5f;
     [SerializeField, Min(0f)] private float projectileSpeed = 5f;
     [SerializeField, Min(0f)] private float muzzleOffset = 0.6f;
+    [SerializeField, Tooltip("Off for turrets that keep firing even when the player hides behind a wall.")]
+    private bool requireLineOfSight = true;
     [SerializeField, Tooltip("Layers that block line of sight, usually the walls.")]
     private LayerMask lineOfSightBlockers = 1;
+
+    [Header("Pattern")]
+    [SerializeField] private ShotPattern pattern = ShotPattern.Aimed;
+    [SerializeField, Min(1), Tooltip("Shots per volley for Spread and Ring.")]
+    private int projectileCount = 3;
+    [SerializeField, Range(0f, 180f), Tooltip("Total angle of the Spread fan.")]
+    private float spreadAngle = 30f;
+    [SerializeField, Tooltip("Degrees the Ring turns after each volley, so the gaps move.")]
+    private float ringTurnPerVolley = 22.5f;
 
     [Header("Wind-up telegraph")]
     [SerializeField] private Transform telegraphVisual;
@@ -23,6 +44,7 @@ public sealed class EnemyShooter2D : MonoBehaviour
     private PlayerHealth2D playerHealth;
     private Vector3 visualBaseScale;
     private float nextShotAt;
+    private float ringAngle;
 
     private void Awake()
     {
@@ -51,7 +73,7 @@ public sealed class EnemyShooter2D : MonoBehaviour
         if (projectilePrefab == null || playerTarget == null)
             return;
 
-        bool canShoot = (playerHealth == null || !playerHealth.IsDead) && HasLineOfSight();
+        bool canShoot = (playerHealth == null || !playerHealth.IsDead) && CanSeePlayer();
         if (!canShoot)
         {
             // Hold the shot until the player steps back into view.
@@ -71,24 +93,55 @@ public sealed class EnemyShooter2D : MonoBehaviour
         }
     }
 
-    private bool HasLineOfSight()
+    private bool CanSeePlayer()
     {
         Vector2 from = transform.position;
         Vector2 to = playerTarget.position;
         if ((to - from).sqrMagnitude > range * range)
             return false;
 
-        return Physics2D.Linecast(from, to, lineOfSightBlockers).collider == null;
+        return !requireLineOfSight || Physics2D.Linecast(from, to, lineOfSightBlockers).collider == null;
     }
 
     private void Fire()
     {
-        Vector2 direction = ((Vector2)(playerTarget.position - transform.position)).normalized;
+        Vector2 aim = ((Vector2)(playerTarget.position - transform.position)).normalized;
+        int count = Mathf.Max(1, projectileCount);
+
+        switch (pattern)
+        {
+            case ShotPattern.Aimed:
+                FireOne(aim);
+                break;
+
+            case ShotPattern.Spread:
+                for (int i = 0; i < count; i++)
+                {
+                    float t = count == 1 ? 0.5f : i / (float)(count - 1);
+                    FireOne(Rotate(aim, Mathf.Lerp(-spreadAngle, spreadAngle, t) * 0.5f));
+                }
+                break;
+
+            case ShotPattern.Ring:
+                for (int i = 0; i < count; i++)
+                    FireOne(Rotate(Vector2.right, ringAngle + i * 360f / count));
+                ringAngle = Mathf.Repeat(ringAngle + ringTurnPerVolley, 360f);
+                break;
+        }
+    }
+
+    private void FireOne(Vector2 direction)
+    {
         Vector2 spawn = (Vector2)transform.position + direction * muzzleOffset;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
         EnemyProjectile2D shot = Instantiate(projectilePrefab, spawn, Quaternion.Euler(0f, 0f, angle));
         shot.Launch(direction * projectileSpeed);
+    }
+
+    private static Vector2 Rotate(Vector2 direction, float degrees)
+    {
+        return Quaternion.Euler(0f, 0f, degrees) * direction;
     }
 
     private void SetWindUp(float amount)

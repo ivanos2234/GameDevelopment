@@ -1,6 +1,9 @@
 using UnityEngine;
 
-/// <summary>Chases the player, slides around walls in the way, and briefly backs away when the player charges at close range.</summary>
+/// <summary>
+/// Chases the player, slides around walls in the way, and briefly backs away when the player charges at close range.
+/// Ranged enemies can instead hold their distance and circle the player (see Keep distance).
+/// </summary>
 [RequireComponent(typeof(Rigidbody2D))]
 public sealed class EnemyChase2D : MonoBehaviour
 {
@@ -17,6 +20,13 @@ public sealed class EnemyChase2D : MonoBehaviour
     [SerializeField, Min(0f)] private float retreatDuration = 0.45f;
     [SerializeField, Min(0f)] private float retreatCooldown = 1.6f;
 
+    [Header("Keep distance (ranged enemies)")]
+    [SerializeField, Min(0f), Tooltip("Back away when the player is closer than this. 0 = never.")]
+    private float fleeDistance = 0f;
+    [SerializeField, Min(0f), Tooltip("Circle the player at this speed while within stop distance. 0 = stand still.")]
+    private float strafeSpeed = 0f;
+    [SerializeField, Min(0.1f)] private float strafeSwitchInterval = 2f;
+
     [Header("Wall avoidance")]
     [SerializeField, Tooltip("Layers the enemy steers around, usually the walls.")]
     private LayerMask obstacleLayers = 1;
@@ -30,6 +40,8 @@ public sealed class EnemyChase2D : MonoBehaviour
     private float canRetreatAt;
     private int avoidSide;
     private float keepAvoidSideUntil;
+    private int strafeSide = 1;
+    private float switchStrafeAt;
 
     private void Awake()
     {
@@ -84,15 +96,42 @@ public sealed class EnemyChase2D : MonoBehaviour
         {
             desiredVelocity = -directionToPlayer * retreatSpeed;
         }
+        else if (distance < fleeDistance)
+        {
+            desiredVelocity = SteerAroundWalls(-directionToPlayer) * chaseSpeed;
+        }
         else if (distance > stopDistance)
         {
             desiredVelocity = SteerAroundWalls(directionToPlayer) * chaseSpeed;
+        }
+        else if (strafeSpeed > 0f)
+        {
+            desiredVelocity = Strafe(directionToPlayer);
         }
 
         body.linearVelocity = Vector2.MoveTowards(
             body.linearVelocity,
             desiredVelocity,
             acceleration * Time.fixedDeltaTime);
+    }
+
+    // Circle the player, now and then switching direction, and turn back instead of grinding into a wall.
+    private Vector2 Strafe(Vector2 directionToPlayer)
+    {
+        if (Time.time >= switchStrafeAt)
+        {
+            strafeSide = Random.value < 0.5f ? -1 : 1;
+            switchStrafeAt = Time.time + strafeSwitchInterval * Random.Range(0.75f, 1.25f);
+        }
+
+        Vector2 side = new Vector2(-directionToPlayer.y, directionToPlayer.x) * strafeSide;
+        if (Physics2D.CircleCast(body.position, avoidRadius, side, avoidLookAhead, obstacleLayers).collider != null)
+        {
+            strafeSide = -strafeSide;
+            side = -side;
+        }
+
+        return side * strafeSpeed;
     }
 
     // Slide along a wall that blocks the straight path, going round the short way (away from the

@@ -24,11 +24,16 @@ public sealed class LevelHUD : MonoBehaviour
     [SerializeField] private Color panelColor = new(0.08f, 0.09f, 0.12f, 0.95f);
     [SerializeField] private Color buttonColor = new(0.22f, 0.25f, 0.32f, 1f);
 
+    [Header("Hit feedback")]
+    [SerializeField, Min(0f)] private float hitShakeStrength = 0.25f;
+    [SerializeField, Min(0f)] private float hitShakeDuration = 0.3f;
+
     [Header("Timing")]
     [SerializeField, Min(0f)] private float introDuration = 3f;
     [SerializeField, Min(0f)] private float lowTimeWarning = 10f;
 
     private LevelManager level;
+    private CameraFollow2D cameraFollow;
     private TextMeshProUGUI heartsText;
     private TextMeshProUGUI timerText;
     private TextMeshProUGUI enemiesText;
@@ -47,6 +52,8 @@ public sealed class LevelHUD : MonoBehaviour
     private void Awake()
     {
         level = GetComponent<LevelManager>();
+        if (Camera.main != null)
+            cameraFollow = Camera.main.GetComponent<CameraFollow2D>();
         EnsureEventSystem();
         BuildUi();
     }
@@ -128,7 +135,11 @@ public sealed class LevelHUD : MonoBehaviour
         heartsText.text = sb.ToString();
 
         if (lastHearts >= 0 && current < lastHearts)
+        {
             damageFlash.color = new Color(warningColor.r, warningColor.g, warningColor.b, 0.35f);
+            if (cameraFollow != null)
+                cameraFollow.Shake(hitShakeStrength, hitShakeDuration);
+        }
         lastHearts = current;
     }
 

@@ -1935,6 +1935,8 @@ MonoBehaviour:
   accentColor: {r: 1, g: 0.8, b: 0.3, a: 1}
   panelColor: {r: 0.08, g: 0.09, b: 0.12, a: 0.95}
   buttonColor: {r: 0.22, g: 0.25, b: 0.32, a: 1}
+  hitShakeStrength: 0.25
+  hitShakeDuration: 0.3
   introDuration: 3
   lowTimeWarning: 10
 --- !u!114 &839602752
@@ -1952,7 +1954,7 @@ MonoBehaviour:
   levelTitle: 'Level 4: The Arena'
   objective: Destroy all enemies
   timeLimit: 180
-  nextLevelScene: 
+  nextLevelScene: Level_05
   mainMenuScene: MainMenu
   player: {fileID: 80338839}
 --- !u!4 &839602753

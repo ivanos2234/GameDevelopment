@@ -1,0 +1,122 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &7881495606791365677
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1242889948433273762, guid: d14884339037f6b44a67a4c0112d99fe, type: 3}
+      propertyPath: maxHealth
+      value: 160
+      objectReference: {fileID: 0}
+    - target: {fileID: 1309712722286144002, guid: d14884339037f6b44a67a4c0112d99fe, type: 3}
+      propertyPath: m_Color.g
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1309712722286144002, guid: d14884339037f6b44a67a4c0112d99fe, type: 3}
+      propertyPath: m_Color.r
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1998637531153422774, guid: d14884339037f6b44a67a4c0112d99fe, type: 3}
+      propertyPath: m_Name
+      value: TurretEnemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 4012747742516960283, guid: d14884339037f6b44a67a4c0112d99fe, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4012747742516960283, guid: d14884339037f6b44a67a4c0112d99fe, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4012747742516960283, guid: d14884339037f6b44a67a4c0112d99fe, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4012747742516960283, guid: d14884339037f6b44a67a4c0112d99fe, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4012747742516960283, guid: d14884339037f6b44a67a4c0112d99fe, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4012747742516960283, guid: d14884339037f6b44a67a4c0112d99fe, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4012747742516960283, guid: d14884339037f6b44a67a4c0112d99fe, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4012747742516960283, guid: d14884339037f6b44a67a4c0112d99fe, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4012747742516960283, guid: d14884339037f6b44a67a4c0112d99fe, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4012747742516960283, guid: d14884339037f6b44a67a4c0112d99fe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4012747742516960283, guid: d14884339037f6b44a67a4c0112d99fe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4012747742516960283, guid: d14884339037f6b44a67a4c0112d99fe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1998637531153422774, guid: d14884339037f6b44a67a4c0112d99fe, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 313431163130087280}
+  m_SourcePrefab: {fileID: 100100000, guid: d14884339037f6b44a67a4c0112d99fe, type: 3}
+--- !u!4 &6507998249139748616 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3977170580457610021, guid: d14884339037f6b44a67a4c0112d99fe, type: 3}
+  m_PrefabInstance: {fileID: 7881495606791365677}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8564760456612298139 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1998637531153422774, guid: d14884339037f6b44a67a4c0112d99fe, type: 3}
+  m_PrefabInstance: {fileID: 7881495606791365677}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &313431163130087280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8564760456612298139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f90c734029ca3425a93992b6c8967e23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyShooter2D
+  projectilePrefab: {fileID: 250000434403430022, guid: d786c7263cb2d48fd8755cb22c43711a, type: 3}
+  playerTarget: {fileID: 0}
+  range: 11
+  fireInterval: 2.8
+  firstShotDelay: 2
+  projectileSpeed: 3.5
+  muzzleOffset: 0.8
+  requireLineOfSight: 0
+  lineOfSightBlockers:
+    serializedVersion: 2
+    m_Bits: 1
+  pattern: 2
+  projectileCount: 8
+  spreadAngle: 30
+  ringTurnPerVolley: 22.5
+  telegraphVisual: {fileID: 6507998249139748616}
+  windUpDuration: 0.4
+  windUpScale: 1.25
