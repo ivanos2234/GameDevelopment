@@ -13,6 +13,9 @@ public sealed class EnemyHealth2D : MonoBehaviour
     [SerializeField] private Color hitFlashColor = new(1f, 0.45f, 0.45f, 1f);
     [SerializeField, Min(0f)] private float hitFlashDuration = 0.1f;
 
+    [Header("Death")]
+    [SerializeField] private Color deathBurstColor = new(0.9f, 0.3f, 0.3f, 1f);
+
     private float currentHealth;
     private Vector3 fillScale;
     private float fillCenterX;
@@ -49,11 +52,15 @@ public sealed class EnemyHealth2D : MonoBehaviour
 
         if (currentHealth <= 0f)
         {
+            Sfx.Play(SfxKind.EnemyDeath);
+            SpriteRenderer bar = healthBarFill != null ? healthBarFill.GetComponent<SpriteRenderer>() : null;
+            DeathBurst2D.Spawn(transform.position, bar != null ? bar.sprite : null, deathBurstColor);
             Died?.Invoke(this);
             Destroy(gameObject);
             return;
         }
 
+        Sfx.Play(SfxKind.SawHit);
         if (flashRoutine != null)
             StopCoroutine(flashRoutine);
         flashRoutine = StartCoroutine(HitFlash());

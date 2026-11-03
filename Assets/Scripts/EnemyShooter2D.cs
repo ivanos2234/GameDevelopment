@@ -107,6 +107,7 @@ public sealed class EnemyShooter2D : MonoBehaviour
     {
         Vector2 aim = ((Vector2)(playerTarget.position - transform.position)).normalized;
         int count = Mathf.Max(1, projectileCount);
+        Sfx.Play(SfxKind.Shoot);
 
         switch (pattern)
         {

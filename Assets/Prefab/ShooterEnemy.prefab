@@ -12,6 +12,14 @@ PrefabInstance:
       propertyPath: maxHealth
       value: 80
       objectReference: {fileID: 0}
+    - target: {fileID: 1242889948433273762, guid: d14884339037f6b44a67a4c0112d99fe, type: 3}
+      propertyPath: deathBurstColor.g
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1242889948433273762, guid: d14884339037f6b44a67a4c0112d99fe, type: 3}
+      propertyPath: deathBurstColor.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1309712722286144002, guid: d14884339037f6b44a67a4c0112d99fe, type: 3}
       propertyPath: m_Color.b
       value: 0.35
@@ -96,9 +104,14 @@ MonoBehaviour:
   firstShotDelay: 1.5
   projectileSpeed: 5
   muzzleOffset: 0.6
+  requireLineOfSight: 1
   lineOfSightBlockers:
     serializedVersion: 2
     m_Bits: 1
+  pattern: 0
+  projectileCount: 3
+  spreadAngle: 30
+  ringTurnPerVolley: 22.5
   telegraphVisual: {fileID: 2768646783774871158}
   windUpDuration: 0.4
   windUpScale: 1.25

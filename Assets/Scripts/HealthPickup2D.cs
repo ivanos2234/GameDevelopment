@@ -39,6 +39,9 @@ public sealed class HealthPickup2D : MonoBehaviour
     {
         PlayerHealth2D player = other.GetComponentInParent<PlayerHealth2D>();
         if (player != null && player.Heal(heal))
+        {
+            Sfx.Play(SfxKind.Pickup);
             Destroy(gameObject);
+        }
     }
 }

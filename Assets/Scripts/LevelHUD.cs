@@ -2,8 +2,6 @@ using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.EventSystems;
-using UnityEngine.InputSystem.UI;
 using UnityEngine.UI;
 
 /// <summary>
@@ -13,7 +11,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(LevelManager))]
 public sealed class LevelHUD : MonoBehaviour
 {
-    private const string Heart = "♥";
+    private const string Heart = "\u2665";
 
     [Header("Colors")]
     [SerializeField] private Color textColor = new(0.95f, 0.95f, 0.95f, 1f);
@@ -32,6 +30,8 @@ public sealed class LevelHUD : MonoBehaviour
     [SerializeField, Min(0f)] private float introDuration = 3f;
     [SerializeField, Min(0f)] private float lowTimeWarning = 10f;
 
+    private const float ButtonSpacing = 95f;
+
     private LevelManager level;
     private CameraFollow2D cameraFollow;
     private TextMeshProUGUI heartsText;
@@ -45,16 +45,19 @@ public sealed class LevelHUD : MonoBehaviour
     private TextMeshProUGUI wonTitle;
     private TextMeshProUGUI wonBody;
     private TextMeshProUGUI wonNextLabel;
+    private readonly UIStar[] wonStars = new UIStar[3];
     private TextMeshProUGUI lostBody;
     private float introStartedAt;
     private int lastHearts = -1;
+
+    private static readonly Color StarOffColor = new(0.25f, 0.27f, 0.33f, 1f);
 
     private void Awake()
     {
         level = GetComponent<LevelManager>();
         if (Camera.main != null)
             cameraFollow = Camera.main.GetComponent<CameraFollow2D>();
-        EnsureEventSystem();
+        RuntimeUi.EnsureEventSystem();
         BuildUi();
     }
 
@@ -152,10 +155,20 @@ public sealed class LevelHUD : MonoBehaviour
         if (level.State == LevelState.Won)
         {
             wonTitle.text = level.HasNextLevel ? "LEVEL CLEARED!" : "YOU BEAT THE GAME!";
+            for (int i = 0; i < wonStars.Length; i++)
+                wonStars[i].color = i < level.StarsEarned ? accentColor : StarOffColor;
+
+            string accent = ColorUtility.ToHtmlStringRGB(accentColor);
             string best = level.IsNewBestTime
-                ? $"<color=#{ColorUtility.ToHtmlStringRGB(accentColor)}>NEW BEST TIME!</color>"
+                ? $"<color=#{accent}>NEW BEST TIME!</color>"
                 : $"Best: {LevelManager.FormatTime(level.BestTime)}";
-            wonBody.text = $"Time: {LevelManager.FormatTime(level.ElapsedTime)}\n{best}";
+            string nextStar = level.StarsEarned switch
+            {
+                1 => $"2 stars: clear in under {LevelManager.FormatTime(level.TwoStarTime)}",
+                2 => $"3 stars: clear in under {LevelManager.FormatTime(level.ThreeStarTime)}",
+                _ => $"<color=#{accent}>Perfect run!</color>",
+            };
+            wonBody.text = $"Time: {LevelManager.FormatTime(level.ElapsedTime)}   {best}\n<size=80%>{nextStar}</size>";
             wonNextLabel.text = level.HasNextLevel ? "Next level" : "Main menu";
         }
         else if (level.State == LevelState.Lost)
@@ -164,52 +177,35 @@ public sealed class LevelHUD : MonoBehaviour
         }
     }
 
-    private static void EnsureEventSystem()
-    {
-        if (FindFirstObjectByType<EventSystem>() != null)
-            return;
-
-        new GameObject("EventSystem", typeof(EventSystem), typeof(InputSystemUIInputModule));
-    }
-
     // ---------- UI construction ----------
 
     private void BuildUi()
     {
-        var canvasObject = new GameObject("HUD Canvas", typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
-        canvasObject.transform.SetParent(transform, false);
-        var canvas = canvasObject.GetComponent<Canvas>();
-        canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-        canvas.sortingOrder = 100;
-        var scaler = canvasObject.GetComponent<CanvasScaler>();
-        scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-        scaler.referenceResolution = new Vector2(1920f, 1080f);
-        scaler.matchWidthOrHeight = 0.5f;
-        RectTransform root = canvasObject.GetComponent<RectTransform>();
+        RectTransform root = RuntimeUi.CreateCanvas(transform, "HUD Canvas", 100);
 
-        damageFlash = CreateImage(root, "Damage Flash", new Color(0f, 0f, 0f, 0f));
-        Stretch(damageFlash.rectTransform);
+        damageFlash = RuntimeUi.CreateImage(root, "Damage Flash", new Color(0f, 0f, 0f, 0f));
+        RuntimeUi.Stretch(damageFlash.rectTransform);
         damageFlash.raycastTarget = false;
 
         heartsText = CreateText(root, "Hearts", 64, TextAlignmentOptions.TopLeft);
-        Place(heartsText.rectTransform, new Vector2(0f, 1f), new Vector2(40f, -24f), new Vector2(600f, 90f));
+        RuntimeUi.Place(heartsText.rectTransform, new Vector2(0f, 1f), new Vector2(40f, -24f), new Vector2(600f, 90f));
 
         TextMeshProUGUI title = CreateText(root, "Level Title", 28, TextAlignmentOptions.Top);
         title.text = level.LevelTitle.ToUpperInvariant();
         title.color = new Color(textColor.r, textColor.g, textColor.b, 0.7f);
-        Place(title.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -20f), new Vector2(800f, 40f));
+        RuntimeUi.Place(title.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -20f), new Vector2(800f, 40f));
 
         timerText = CreateText(root, "Timer", 60, TextAlignmentOptions.Top);
         timerText.fontStyle = FontStyles.Bold;
-        Place(timerText.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -56f), new Vector2(400f, 80f));
+        RuntimeUi.Place(timerText.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -56f), new Vector2(400f, 80f));
 
         enemiesText = CreateText(root, "Enemies", 40, TextAlignmentOptions.TopRight);
-        Place(enemiesText.rectTransform, new Vector2(1f, 1f), new Vector2(-40f, -32f), new Vector2(600f, 60f));
+        RuntimeUi.Place(enemiesText.rectTransform, new Vector2(1f, 1f), new Vector2(-40f, -32f), new Vector2(600f, 60f));
 
         TextMeshProUGUI hint = CreateText(root, "Controls Hint", 24, TextAlignmentOptions.BottomLeft);
-        hint.text = "WASD move  •  Esc pause  •  R restart";
+        hint.text = "WASD move  \u2022  Esc pause  \u2022  R restart  \u2022  M sound on/off";
         hint.color = new Color(textColor.r, textColor.g, textColor.b, 0.45f);
-        Place(hint.rectTransform, new Vector2(0f, 0f), new Vector2(40f, 24f), new Vector2(900f, 40f));
+        RuntimeUi.Place(hint.rectTransform, new Vector2(0f, 0f), new Vector2(40f, 24f), new Vector2(1100f, 40f));
 
         BuildIntro(root);
         BuildPausePanel(root);
@@ -223,126 +219,93 @@ public sealed class LevelHUD : MonoBehaviour
         introObject.transform.SetParent(root, false);
         introGroup = introObject.GetComponent<CanvasGroup>();
         introGroup.blocksRaycasts = false;
-        Place((RectTransform)introObject.transform, new Vector2(0.5f, 0.5f), new Vector2(0f, 160f), new Vector2(1400f, 220f));
+        RuntimeUi.Place((RectTransform)introObject.transform, new Vector2(0.5f, 0.5f), new Vector2(0f, 160f), new Vector2(1400f, 220f));
 
         TextMeshProUGUI title = CreateText(introObject.transform, "Title", 88, TextAlignmentOptions.Center);
         title.text = level.LevelTitle.ToUpperInvariant();
         title.fontStyle = FontStyles.Bold;
-        Place(title.rectTransform, new Vector2(0.5f, 1f), Vector2.zero, new Vector2(1400f, 120f));
+        RuntimeUi.Place(title.rectTransform, new Vector2(0.5f, 1f), Vector2.zero, new Vector2(1400f, 120f));
 
         TextMeshProUGUI goal = CreateText(introObject.transform, "Objective", 40, TextAlignmentOptions.Center);
         goal.text = level.HasTimeLimit
             ? $"{level.Objective} within {Mathf.RoundToInt(level.TimeLimit)} seconds"
             : level.Objective;
         goal.color = accentColor;
-        Place(goal.rectTransform, new Vector2(0.5f, 0f), Vector2.zero, new Vector2(1400f, 80f));
+        RuntimeUi.Place(goal.rectTransform, new Vector2(0.5f, 0f), Vector2.zero, new Vector2(1400f, 80f));
     }
 
     private void BuildPausePanel(RectTransform root)
     {
-        pausePanel = CreatePanel(root, "Pause Panel", "PAUSED", 3, out RectTransform box, out _);
-        CreateButton(box, "Resume", level.TogglePause, 0);
-        CreateButton(box, "Restart (R)", level.Restart, 1);
-        CreateButton(box, "Main menu", level.LoadMainMenu, 2);
+        pausePanel = CreatePanel(root, "Pause Panel", "PAUSED", 160f, 3, out RectTransform box, out _);
+        CreateButton(box, "Resume", level.TogglePause, 160f, 0);
+        CreateButton(box, "Restart (R)", level.Restart, 160f, 1);
+        CreateButton(box, "Main menu", level.LoadMainMenu, 160f, 2);
     }
 
     private void BuildWonPanel(RectTransform root)
     {
-        wonPanel = CreatePanel(root, "Level Cleared Panel", "LEVEL CLEARED!", 3, out RectTransform box, out wonBody);
+        const float buttonsTop = 360f;
+        wonPanel = CreatePanel(root, "Level Cleared Panel", "LEVEL CLEARED!", buttonsTop, 3, out RectTransform box, out wonBody);
         wonTitle = box.Find("Title").GetComponent<TextMeshProUGUI>();
         wonTitle.color = accentColor;
-        wonNextLabel = CreateButton(box, "Next level", level.LoadNextLevel, 0);
-        CreateButton(box, "Play again (R)", level.Restart, 1);
-        CreateButton(box, "Main menu", level.LoadMainMenu, 2);
+
+        for (int i = 0; i < wonStars.Length; i++)
+        {
+            wonStars[i] = RuntimeUi.CreateStar(box, $"Star {i + 1}", StarOffColor);
+            float size = i == 1 ? 84f : 68f;
+            RuntimeUi.Place(wonStars[i].rectTransform, new Vector2(0.5f, 1f), new Vector2((i - 1) * 100f, i == 1 ? -128f : -144f), new Vector2(size, size));
+        }
+
+        RuntimeUi.Place(wonBody.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -230f), new Vector2(700f, 110f));
+        wonNextLabel = CreateButton(box, "Next level", level.LoadNextLevel, buttonsTop, 0);
+        CreateButton(box, "Play again (R)", level.Restart, buttonsTop, 1);
+        CreateButton(box, "Main menu", level.LoadMainMenu, buttonsTop, 2);
     }
 
     private void BuildLostPanel(RectTransform root)
     {
-        lostPanel = CreatePanel(root, "Game Over Panel", "GAME OVER", 2, out RectTransform box, out lostBody);
+        lostPanel = CreatePanel(root, "Game Over Panel", "GAME OVER", 290f, 2, out RectTransform box, out lostBody);
         box.Find("Title").GetComponent<TextMeshProUGUI>().color = warningColor;
-        CreateButton(box, "Try again (R)", level.Restart, 0);
-        CreateButton(box, "Main menu", level.LoadMainMenu, 1);
+        CreateButton(box, "Try again (R)", level.Restart, 290f, 0);
+        CreateButton(box, "Main menu", level.LoadMainMenu, 290f, 1);
     }
 
-    private const float ButtonsTop = 290f;
-    private const float ButtonSpacing = 95f;
-
-    private GameObject CreatePanel(RectTransform root, string name, string titleText, int buttonCount,
+    private GameObject CreatePanel(RectTransform root, string name, string titleText, float buttonsTop, int buttonCount,
         out RectTransform box, out TextMeshProUGUI body)
     {
-        Image dim = CreateImage(root, name, new Color(0f, 0f, 0f, 0.6f));
-        Stretch(dim.rectTransform);
+        Image dim = RuntimeUi.CreateImage(root, name, new Color(0f, 0f, 0f, 0.6f));
+        RuntimeUi.Stretch(dim.rectTransform);
 
-        Image boxImage = CreateImage(dim.transform, "Box", panelColor);
+        Image boxImage = RuntimeUi.CreateImage(dim.transform, "Box", panelColor);
         box = boxImage.rectTransform;
-        Place(box, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(720f, ButtonsTop + buttonCount * ButtonSpacing + 30f));
+        RuntimeUi.Place(box, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(760f, buttonsTop + buttonCount * ButtonSpacing + 30f));
 
         TextMeshProUGUI title = CreateText(box, "Title", 64, TextAlignmentOptions.Center);
         title.text = titleText;
         title.fontStyle = FontStyles.Bold;
-        Place(title.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -40f), new Vector2(680f, 90f));
+        RuntimeUi.Place(title.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -36f), new Vector2(720f, 90f));
 
         body = CreateText(box, "Body", 34, TextAlignmentOptions.Center);
-        Place(body.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -140f), new Vector2(660f, 120f));
+        RuntimeUi.Place(body.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -140f), new Vector2(700f, 120f));
 
         dim.gameObject.SetActive(false);
         return dim.gameObject;
     }
 
-    private TextMeshProUGUI CreateButton(RectTransform box, string label, UnityAction onClick, int index)
+    private TextMeshProUGUI CreateButton(RectTransform box, string label, UnityAction onClick, float buttonsTop, int index)
     {
-        Image image = CreateImage(box, label + " Button", buttonColor);
-        Place(image.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -ButtonsTop - index * ButtonSpacing), new Vector2(460f, 76f));
+        Button button = RuntimeUi.CreateButton(box, label + " Button", buttonColor, onClick);
+        RuntimeUi.Place((RectTransform)button.transform, new Vector2(0.5f, 1f),
+            new Vector2(0f, -buttonsTop - index * ButtonSpacing), new Vector2(460f, 76f));
 
-        var button = image.gameObject.AddComponent<Button>();
-        ColorBlock colors = button.colors;
-        colors.highlightedColor = new Color(1.35f, 1.35f, 1.35f, 1f);
-        colors.pressedColor = new Color(0.8f, 0.8f, 0.8f, 1f);
-        button.colors = colors;
-        button.onClick.AddListener(onClick);
-
-        TextMeshProUGUI text = CreateText(image.transform, "Label", 36, TextAlignmentOptions.Center);
+        TextMeshProUGUI text = CreateText(button.transform, "Label", 36, TextAlignmentOptions.Center);
         text.text = label;
-        Stretch(text.rectTransform);
+        RuntimeUi.Stretch(text.rectTransform);
         return text;
     }
 
     private TextMeshProUGUI CreateText(Transform parent, string name, float size, TextAlignmentOptions alignment)
     {
-        var textObject = new GameObject(name, typeof(RectTransform));
-        textObject.transform.SetParent(parent, false);
-        var text = textObject.AddComponent<TextMeshProUGUI>();
-        text.fontSize = size;
-        text.alignment = alignment;
-        text.color = textColor;
-        text.raycastTarget = false;
-        text.textWrappingMode = TextWrappingModes.NoWrap;
-        return text;
-    }
-
-    private static Image CreateImage(Transform parent, string name, Color color)
-    {
-        var imageObject = new GameObject(name, typeof(RectTransform));
-        imageObject.transform.SetParent(parent, false);
-        var image = imageObject.AddComponent<Image>();
-        image.color = color;
-        return image;
-    }
-
-    private static void Place(RectTransform rect, Vector2 anchor, Vector2 position, Vector2 size)
-    {
-        rect.anchorMin = anchor;
-        rect.anchorMax = anchor;
-        rect.pivot = anchor;
-        rect.anchoredPosition = position;
-        rect.sizeDelta = size;
-    }
-
-    private static void Stretch(RectTransform rect)
-    {
-        rect.anchorMin = Vector2.zero;
-        rect.anchorMax = Vector2.one;
-        rect.offsetMin = Vector2.zero;
-        rect.offsetMax = Vector2.zero;
+        return RuntimeUi.CreateText(parent, name, size, alignment, textColor);
     }
 }

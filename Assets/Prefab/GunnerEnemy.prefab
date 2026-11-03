@@ -36,6 +36,18 @@ PrefabInstance:
       propertyPath: maxHealth
       value: 70
       objectReference: {fileID: 0}
+    - target: {fileID: 5175689789952396533, guid: 4b2c6a3d9ace4ed4ebb2d57329e2a492, type: 3}
+      propertyPath: deathBurstColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5175689789952396533, guid: 4b2c6a3d9ace4ed4ebb2d57329e2a492, type: 3}
+      propertyPath: deathBurstColor.g
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 5175689789952396533, guid: 4b2c6a3d9ace4ed4ebb2d57329e2a492, type: 3}
+      propertyPath: deathBurstColor.r
+      value: 0.45
+      objectReference: {fileID: 0}
     - target: {fileID: 6262859583857530870, guid: 4b2c6a3d9ace4ed4ebb2d57329e2a492, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

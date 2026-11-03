@@ -7,6 +7,7 @@ public class MainMenu : MonoBehaviour
 
     public void PlayGame()
     {
+        Sfx.Play(SfxKind.Click);
         Time.timeScale = 1f;
         SceneManager.LoadScene(firstLevelScene);
     }

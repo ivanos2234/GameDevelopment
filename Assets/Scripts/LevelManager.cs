@@ -18,13 +18,17 @@ public enum LevelState
 /// </summary>
 public sealed class LevelManager : MonoBehaviour
 {
-    private const string BestTimeKeyPrefix = "BestTime.";
-
     [Header("Level")]
     [SerializeField] private string levelTitle = "Level 1";
     [SerializeField] private string objective = "Destroy all enemies";
     [SerializeField, Min(0f), Tooltip("Seconds to clear the level. 0 = no time limit.")]
     private float timeLimit = 90f;
+
+    [Header("Stars (clearing the level gives the first one)")]
+    [SerializeField, Min(0f), Tooltip("Clear within this many seconds for 2 stars. 0 = two thirds of the time limit.")]
+    private float twoStarTime = 0f;
+    [SerializeField, Min(0f), Tooltip("Clear within this many seconds for 3 stars. 0 = 40% of the time limit.")]
+    private float threeStarTime = 0f;
 
     [Header("Scenes")]
     [SerializeField, Tooltip("Scene loaded after this level is cleared. Leave empty on the last level.")]
@@ -50,16 +54,19 @@ public sealed class LevelManager : MonoBehaviour
     public string LoseReason { get; private set; } = "";
     public float BestTime { get; private set; } = -1f;
     public bool IsNewBestTime { get; private set; }
+    public int StarsEarned { get; private set; }
+    public float TwoStarTime => twoStarTime > 0f ? twoStarTime : Mathf.Round(timeLimit * 2f / 3f);
+    public float ThreeStarTime => threeStarTime > 0f ? threeStarTime : Mathf.Round(timeLimit * 0.4f);
 
     public event Action StateChanged;
     public event Action EnemiesChanged;
 
-    private string BestTimeKey => BestTimeKeyPrefix + SceneManager.GetActiveScene().name;
+    private static string SceneName => SceneManager.GetActiveScene().name;
 
     private void Awake()
     {
         Time.timeScale = 1f;
-        BestTime = PlayerPrefs.GetFloat(BestTimeKey, -1f);
+        BestTime = LevelProgress.GetBestTime(SceneName);
 
         if (player == null)
             player = FindFirstObjectByType<PlayerHealth2D>();
@@ -123,6 +130,8 @@ public sealed class LevelManager : MonoBehaviour
             TogglePause();
         else if (keyboard.rKey.wasPressedThisFrame)
             Restart();
+        else if (keyboard.mKey.wasPressedThisFrame)
+            Sfx.Muted = !Sfx.Muted;
         else if (State == LevelState.Won && HasNextLevel &&
                  (keyboard.enterKey.wasPressedThisFrame || keyboard.nKey.wasPressedThisFrame))
             LoadNextLevel();
@@ -170,14 +179,16 @@ public sealed class LevelManager : MonoBehaviour
 
     private void Win()
     {
-        IsNewBestTime = BestTime < 0f || ElapsedTime < BestTime;
-        if (IsNewBestTime)
-        {
-            BestTime = ElapsedTime;
-            PlayerPrefs.SetFloat(BestTimeKey, BestTime);
-            PlayerPrefs.Save();
-        }
+        StarsEarned = 1;
+        if (ElapsedTime <= TwoStarTime)
+            StarsEarned++;
+        if (ElapsedTime <= ThreeStarTime)
+            StarsEarned++;
 
+        IsNewBestTime = LevelProgress.RecordWin(SceneName, ElapsedTime, StarsEarned);
+        BestTime = LevelProgress.GetBestTime(SceneName);
+
+        Sfx.Play(SfxKind.LevelCleared);
         SetState(LevelState.Won, 0f);
     }
 
@@ -187,6 +198,7 @@ public sealed class LevelManager : MonoBehaviour
             return;
 
         LoseReason = reason;
+        Sfx.Play(SfxKind.GameOver);
         SetState(LevelState.Lost, 0f);
     }
 

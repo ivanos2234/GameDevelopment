@@ -49,6 +49,7 @@ public sealed class PlayerHealth2D : MonoBehaviour
         if (away.sqrMagnitude > 0.0001f)
             body.AddForce(away.normalized * knockbackImpulse, ForceMode2D.Impulse);
 
+        Sfx.Play(SfxKind.PlayerHurt);
         HeartsChanged?.Invoke(CurrentHearts, maxHearts);
 
         if (IsDead)
