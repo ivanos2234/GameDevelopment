@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1242889948433273762, guid: d14884339037f6b44a67a4c0112d99fe, type: 3}
       propertyPath: maxHealth
-      value: 80
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 1242889948433273762, guid: d14884339037f6b44a67a4c0112d99fe, type: 3}
       propertyPath: deathBurstColor.g

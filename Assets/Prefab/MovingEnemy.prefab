@@ -324,7 +324,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c885f2b57cf4bc6a0b61a96a9d02c43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth2D
-  maxHealth: 100
+  maxHealth: 60
   healthBarFill: {fileID: 7744364704998803878}
   hitFlashColor: {r: 1, g: 0.45, b: 0.45, a: 1}
   hitFlashDuration: 0.1
