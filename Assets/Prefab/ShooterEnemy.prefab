@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &1251308032472814931
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1242889948433273762, guid: d14884339037f6b44a67a4c0112d99fe, type: 3}
+      propertyPath: maxHealth
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 1309712722286144002, guid: d14884339037f6b44a67a4c0112d99fe, type: 3}
+      propertyPath: m_Color.b
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 1309712722286144002, guid: d14884339037f6b44a67a4c0112d99fe, type: 3}
+      propertyPath: m_Color.g
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1998637531153422774, guid: d14884339037f6b44a67a4c0112d99fe, type: 3}
+      propertyPath: m_Name
+      value: ShooterEnemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 4012747742516960283, guid: d14884339037f6b44a67a4c0112d99fe, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4012747742516960283, guid: d14884339037f6b44a67a4c0112d99fe, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4012747742516960283, guid: d14884339037f6b44a67a4c0112d99fe, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4012747742516960283, guid: d14884339037f6b44a67a4c0112d99fe, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4012747742516960283, guid: d14884339037f6b44a67a4c0112d99fe, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4012747742516960283, guid: d14884339037f6b44a67a4c0112d99fe, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4012747742516960283, guid: d14884339037f6b44a67a4c0112d99fe, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4012747742516960283, guid: d14884339037f6b44a67a4c0112d99fe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4012747742516960283, guid: d14884339037f6b44a67a4c0112d99fe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4012747742516960283, guid: d14884339037f6b44a67a4c0112d99fe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1998637531153422774, guid: d14884339037f6b44a67a4c0112d99fe, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3253545020545510068}
+  m_SourcePrefab: {fileID: 100100000, guid: d14884339037f6b44a67a4c0112d99fe, type: 3}
+--- !u!1 &783938838376172773 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1998637531153422774, guid: d14884339037f6b44a67a4c0112d99fe, type: 3}
+  m_PrefabInstance: {fileID: 1251308032472814931}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3253545020545510068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 783938838376172773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f90c734029ca3425a93992b6c8967e23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyShooter2D
+  projectilePrefab: {fileID: 2609347828308552144, guid: 981916362a54d49488af2e3a5ae531cf, type: 3}
+  playerTarget: {fileID: 0}
+  range: 9
+  fireInterval: 2
+  firstShotDelay: 1.5
+  projectileSpeed: 5
+  muzzleOffset: 0.6
+  lineOfSightBlockers:
+    serializedVersion: 2
+    m_Bits: 1
+  telegraphVisual: {fileID: 2768646783774871158}
+  windUpDuration: 0.4
+  windUpScale: 1.25
+--- !u!4 &2768646783774871158 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3977170580457610021, guid: d14884339037f6b44a67a4c0112d99fe, type: 3}
+  m_PrefabInstance: {fileID: 1251308032472814931}
+  m_PrefabAsset: {fileID: 0}

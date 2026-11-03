@@ -1,6 +1,6 @@
 using UnityEngine;
 
-/// <summary>Chases the player and briefly backs away when the player charges at close range.</summary>
+/// <summary>Chases the player, slides around walls in the way, and briefly backs away when the player charges at close range.</summary>
 [RequireComponent(typeof(Rigidbody2D))]
 public sealed class EnemyChase2D : MonoBehaviour
 {
@@ -17,10 +17,19 @@ public sealed class EnemyChase2D : MonoBehaviour
     [SerializeField, Min(0f)] private float retreatDuration = 0.45f;
     [SerializeField, Min(0f)] private float retreatCooldown = 1.6f;
 
+    [Header("Wall avoidance")]
+    [SerializeField, Tooltip("Layers the enemy steers around, usually the walls.")]
+    private LayerMask obstacleLayers = 1;
+    [SerializeField, Min(0f)] private float avoidLookAhead = 1.2f;
+    [SerializeField, Min(0.05f)] private float avoidRadius = 0.4f;
+    [SerializeField, Min(0f)] private float avoidSideHoldTime = 1f;
+
     private Rigidbody2D body;
     private Rigidbody2D playerBody;
     private float retreatUntil;
     private float canRetreatAt;
+    private int avoidSide;
+    private float keepAvoidSideUntil;
 
     private void Awake()
     {
@@ -77,12 +86,35 @@ public sealed class EnemyChase2D : MonoBehaviour
         }
         else if (distance > stopDistance)
         {
-            desiredVelocity = directionToPlayer * chaseSpeed;
+            desiredVelocity = SteerAroundWalls(directionToPlayer) * chaseSpeed;
         }
 
         body.linearVelocity = Vector2.MoveTowards(
             body.linearVelocity,
             desiredVelocity,
             acceleration * Time.fixedDeltaTime);
+    }
+
+    // Slide along a wall that blocks the straight path, going round the short way (away from the
+    // wall's middle). The side is kept while the way stays blocked, so the enemy circles the
+    // obstacle in one direction instead of flipping back and forth in front of it.
+    private Vector2 SteerAroundWalls(Vector2 direction)
+    {
+        if (avoidLookAhead <= 0f)
+            return direction;
+
+        RaycastHit2D hit = Physics2D.CircleCast(body.position, avoidRadius, direction, avoidLookAhead, obstacleLayers);
+        if (hit.collider == null)
+            return direction;
+
+        Vector2 tangent = new Vector2(-hit.normal.y, hit.normal.x);
+        if (Time.time >= keepAvoidSideUntil)
+        {
+            Vector2 toWallMiddle = (Vector2)hit.collider.bounds.center - hit.point;
+            avoidSide = Vector2.Dot(tangent, toWallMiddle) > 0f ? -1 : 1;
+        }
+        keepAvoidSideUntil = Time.time + avoidSideHoldTime;
+
+        return tangent * avoidSide;
     }
 }
