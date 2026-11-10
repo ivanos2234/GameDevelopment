@@ -1232,7 +1232,7 @@ SpriteRenderer:
   m_SortingOrder: -100
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 0214d33aeaf5bff48933ee435e6eebdc, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.6, g: 0.64, b: 0.78, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
@@ -1928,17 +1928,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 954648d1d18de49cbb7217dd914060fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelHUD
-  textColor: {r: 0.95, g: 0.95, b: 0.95, a: 1}
-  heartColor: {r: 0.9, g: 0.2, b: 0.25, a: 1}
-  emptyHeartColor: {r: 0.3, g: 0.3, b: 0.33, a: 1}
-  warningColor: {r: 1, g: 0.35, b: 0.3, a: 1}
-  accentColor: {r: 1, g: 0.8, b: 0.3, a: 1}
-  panelColor: {r: 0.08, g: 0.09, b: 0.12, a: 0.95}
-  buttonColor: {r: 0.22, g: 0.25, b: 0.32, a: 1}
   hitShakeStrength: 0.25
   hitShakeDuration: 0.3
   introDuration: 3
+  tipDuration: 8
   lowTimeWarning: 10
+  arrowsWhenEnemiesLeft: 3
 --- !u!114 &839602752
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1953,7 +1948,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LevelManager
   levelTitle: 'Level 4: The Arena'
   objective: Destroy all enemies
+  tip: Hurt? Grab the hearts on the left and right.
   timeLimit: 180
+  twoStarTime: 0
+  threeStarTime: 0
   nextLevelScene: Level_05
   mainMenuScene: MainMenu
   player: {fileID: 80338839}

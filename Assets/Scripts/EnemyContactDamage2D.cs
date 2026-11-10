@@ -10,7 +10,7 @@ public sealed class EnemyContactDamage2D : MonoBehaviour
 {
     [SerializeField, Min(1)] private int damage = 1;
     [SerializeField, Min(0f), Tooltip("Gap between the colliders at which the hit still lands.")]
-    private float reach = 0.3f;
+    private float reach = 0.05f;
 
     private Collider2D ownCollider;
     private PlayerHealth2D player;

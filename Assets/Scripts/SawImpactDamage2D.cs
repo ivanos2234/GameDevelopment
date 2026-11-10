@@ -114,9 +114,9 @@ public sealed class SawImpactDamage2D : MonoBehaviour
             return;
 
         float damage = damagePerSecond * damageTickInterval;
-        enemy.TakeDamage(damage);
-
         Vector2 hitPoint = other.ClosestPoint(sawBody.worldCenterOfMass);
+        enemy.TakeDamage(damage, hitPoint);
+
         LastImpactSpeed = sawBody.GetPointVelocity(hitPoint).magnitude;
         LastDamageDealt = damage;
         LastHitTime = Time.time;

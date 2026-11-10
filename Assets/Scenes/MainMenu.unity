@@ -597,6 +597,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 605135308}
   m_CullTransparentMesh: 1
+--- !u!1 &670725258
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 670725260}
+  - component: {fileID: 670725259}
+  m_Layer: 0
+  m_Name: Menu Screen
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &670725259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 670725258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2284f3328043d4c2caffe63f2ad03805, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MainMenuScreen
+  menu: {fileID: 1217155432}
+  levelSelect: {fileID: 1124945335}
+  version: v0.4
+--- !u!4 &670725260
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 670725258}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1124945334
 GameObject:
   m_ObjectHideFlags: 0
@@ -628,12 +675,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LevelSelectMenu
   levels: {fileID: 11400000, guid: bc95b3efee54e46b3b6c5f3786402f9d, type: 2}
   unlockAll: 0
-  textColor: {r: 0.95, g: 0.95, b: 0.95, a: 1}
-  accentColor: {r: 1, g: 0.8, b: 0.3, a: 1}
-  panelColor: {r: 0.08, g: 0.09, b: 0.12, a: 0.97}
-  cardColor: {r: 0.22, g: 0.25, b: 0.32, a: 1}
-  lockedCardColor: {r: 0.13, g: 0.14, b: 0.18, a: 1}
-  starOffColor: {r: 0.32, g: 0.34, b: 0.4, a: 1}
 --- !u!4 &1124945336
 Transform:
   m_ObjectHideFlags: 0
@@ -986,7 +1027,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1640353346
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1569,3 +1610,4 @@ SceneRoots:
   - {fileID: 1787454384}
   - {fileID: 1217155433}
   - {fileID: 1124945336}
+  - {fileID: 670725260}

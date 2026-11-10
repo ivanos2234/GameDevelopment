@@ -21,6 +21,8 @@ public sealed class LevelManager : MonoBehaviour
     [Header("Level")]
     [SerializeField] private string levelTitle = "Level 1";
     [SerializeField] private string objective = "Destroy all enemies";
+    [SerializeField, TextArea, Tooltip("Optional hint shown in a box at the start of the level.")]
+    private string tip = "";
     [SerializeField, Min(0f), Tooltip("Seconds to clear the level. 0 = no time limit.")]
     private float timeLimit = 90f;
 
@@ -43,6 +45,8 @@ public sealed class LevelManager : MonoBehaviour
     public LevelState State { get; private set; } = LevelState.Playing;
     public string LevelTitle => levelTitle;
     public string Objective => objective;
+    public string Tip => tip;
+    public IReadOnlyCollection<EnemyHealth2D> LivingEnemies => livingEnemies;
     public bool HasTimeLimit => timeLimit > 0f;
     public float TimeLimit => timeLimit;
     public float ElapsedTime { get; private set; }

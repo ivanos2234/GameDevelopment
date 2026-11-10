@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 253c4b25529f7419a83f74d90139c2ff, type: 3}
+  m_Name: UiTheme
+  m_EditorClassIdentifier: Assembly-CSharp::UiTheme
+  titleFont: {fileID: 11400000, guid: b094b1ef4f71a491585f756756c5176c, type: 2}
+  bodyFont: {fileID: 11400000, guid: 36dc9d983512944d4a5906c5a2c7f853, type: 2}
+  night: {r: 0.05490196, g: 0.07058824, b: 0.1254902, a: 1}
+  bar: {r: 0.039215688, g: 0.050980393, b: 0.09411765, a: 1}
+  barLine: {r: 0.13725491, g: 0.16470589, b: 0.23921569, a: 1}
+  panel: {r: 0.078431375, g: 0.09411765, b: 0.15294118, a: 1}
+  card: {r: 0.08627451, g: 0.10980392, b: 0.18039216, a: 1}
+  lockedCard: {r: 0.0627451, g: 0.078431375, b: 0.12156863, a: 1}
+  border: {r: 0.22745098, g: 0.2627451, b: 0.3764706, a: 1}
+  borderDim: {r: 0.16470589, g: 0.19215687, b: 0.2784314, a: 1}
+  hardShadow: {r: 0.02745098, g: 0.039215688, b: 0.07058824, a: 1}
+  floor: {r: 0.11764706, g: 0.14117648, b: 0.21176471, a: 1}
+  stone: {r: 0.6392157, g: 0.67058825, b: 0.74509805, a: 1}
+  paper: {r: 0.9490196, g: 0.9372549, b: 0.9019608, a: 1}
+  muted: {r: 0.5411765, g: 0.5764706, b: 0.65882355, a: 1}
+  soft: {r: 0.6392157, g: 0.67058825, b: 0.74509805, a: 1}
+  red: {r: 0.7882353, g: 0.22745098, b: 0.24705882, a: 1}
+  redShadow: {r: 0.43137255, g: 0.10980392, b: 0.1254902, a: 1}
+  heart: {r: 0.8980392, g: 0.28235295, b: 0.3019608, a: 1}
+  heartHighlight: {r: 1, g: 0.61960787, b: 0.6313726, a: 1}
+  gold: {r: 0.9490196, g: 0.7882353, b: 0.29803923, a: 1}
+  goldShadow: {r: 0.41960785, g: 0.3254902, b: 0.07450981, a: 1}
+  health: {r: 0.2901961, g: 0.87058824, b: 0.5019608, a: 1}
+  dummy: {r: 0.5411765, g: 0.5764706, b: 0.65882355, a: 1}
+  chaser: {r: 0.8980392, g: 0.28235295, b: 0.3019608, a: 1}
+  shooter: {r: 0.9490196, g: 0.54901963, b: 0.15686275, a: 1}
+  gunner: {r: 0.30588236, g: 0.65882355, b: 1, a: 1}
+  turret: {r: 0.6627451, g: 0.4392157, b: 1, a: 1}
