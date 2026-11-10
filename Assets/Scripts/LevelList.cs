@@ -11,6 +11,8 @@ public sealed class LevelList : ScriptableObject
     {
         public string scene;
         public string title;
+        [Tooltip("How many enemies of each EnemyKind the level has, for the level select preview.")]
+        public int[] enemyCounts = new int[0];
     }
 
     [SerializeField] private List<Entry> levels = new();
