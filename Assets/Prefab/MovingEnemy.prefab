@@ -586,7 +586,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyContactDamage2D
   damage: 1
-  reach: 0.3
+  reach: 0.05
 --- !u!1 &9140697192981586107
 GameObject:
   m_ObjectHideFlags: 0
