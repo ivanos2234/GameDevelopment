@@ -65,10 +65,6 @@ public sealed class LevelAmbience : MonoBehaviour
         if (view != null)
             view.backgroundColor = background;
 
-        Tint("Repeating Background", floorTint, false);
-        Tint("Arena", wallTint, true);
-        Tint("Obstacles", wallTint, true);
-
         foreach (Light2D light in FindObjectsByType<Light2D>(FindObjectsSortMode.None))
         {
             if (light.lightType != Light2D.LightType.Global)
@@ -81,6 +77,14 @@ public sealed class LevelAmbience : MonoBehaviour
             AddPlayerLight();
 
         SpawnWeather();
+    }
+
+    // Tinting waits for Start so it also reaches the temple buildings the arena adds in Awake.
+    private void Start()
+    {
+        Tint("Repeating Background", floorTint, false);
+        Tint("Arena", wallTint, true);
+        Tint("Obstacles", wallTint, true);
     }
 
     private static void Tint(string rootName, Color color, bool children)
@@ -218,8 +222,10 @@ public sealed class LevelAmbience : MonoBehaviour
             if (p.spin != 0f)
                 p.transform.Rotate(0f, 0f, p.spin * dt);
 
-            // Wrap around the view so the weather never runs out.
-            if (position.x < area.xMin) position.x = area.xMax;
+            // Wrap around the view so the weather never runs out; after a big camera jump, scatter it again.
+            if (!area.Contains(position) && !ViewRect(6f).Contains(position))
+                position = new Vector3(Random.Range(area.xMin, area.xMax), Random.Range(area.yMin, area.yMax), 0f);
+            else if (position.x < area.xMin) position.x = area.xMax;
             else if (position.x > area.xMax) position.x = area.xMin;
             if (position.y < area.yMin) position.y = area.yMax;
             else if (position.y > area.yMax) position.y = area.yMin;
