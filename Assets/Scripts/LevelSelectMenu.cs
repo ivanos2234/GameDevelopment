@@ -222,7 +222,7 @@ public sealed class LevelSelectMenu : MonoBehaviour
     // A mini arena: one colored square per enemy, so the card shows what the level throws at you.
     private void BuildPreview(Transform card, LevelList.Entry entry, float inner, float height)
     {
-        Image arena = RuntimeUi.CreateBox(card, "Preview", theme.floor, theme.stone, 6f, Color.clear, 0f);
+        Image arena = RuntimeUi.CreateBox(card, "Preview", entry.themeColor, theme.stone, 6f, Color.clear, 0f);
         RuntimeUi.PlaceTopLeft(arena.rectTransform, 27f, compact ? 120f : 150f, inner, height);
 
         const float square = 18f;
