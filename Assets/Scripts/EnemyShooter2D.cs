@@ -48,6 +48,9 @@ public sealed class EnemyShooter2D : MonoBehaviour
 
     private void Awake()
     {
+        projectileSpeed *= Difficulty.Current.projectileSpeed;
+        fireInterval *= Difficulty.Current.fireInterval;
+
         if (playerTarget == null)
         {
             GameObject player = GameObject.Find("Player");

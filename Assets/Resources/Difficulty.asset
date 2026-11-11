@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ac5549e83ae24011b5d49457b138681, type: 3}
+  m_Name: Difficulty
+  m_EditorClassIdentifier: Assembly-CSharp::Difficulty
+  easy:
+    enemyHealth: 0.6
+    enemySpeed: 0.7
+    projectileSpeed: 0.65
+    fireInterval: 1.3
+    timeLimit: 1.2
+  normal:
+    enemyHealth: 1
+    enemySpeed: 1
+    projectileSpeed: 1
+    fireInterval: 1
+    timeLimit: 1

@@ -3822,9 +3822,10 @@ MonoBehaviour:
   objective: Destroy all enemies
   tip: Turret rings turn after every volley. Slip through the gaps.
   timeLimit: 180
+  killInOrder: 0
   twoStarTime: 0
   threeStarTime: 0
-  nextLevelScene: 
+  nextLevelScene: Level_06
   mainMenuScene: MainMenu
   player: {fileID: 904754503}
 --- !u!4 &1507035275

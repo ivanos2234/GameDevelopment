@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 /// <summary>Health and a simple world-space sprite health bar for a prototype enemy.</summary>
@@ -10,6 +11,8 @@ public sealed class EnemyHealth2D : MonoBehaviour
     [SerializeField] private Transform healthBarFill;
     [SerializeField, Tooltip("Sets the color code: rim, death burst and HUD marker.")]
     private EnemyKind kind = EnemyKind.Dummy;
+    [SerializeField, Min(0), Tooltip("Position in the kill order on levels that use one (1 = first). 0 = any time.")]
+    private int killOrder;
 
     [Header("Look")]
     [SerializeField, Tooltip("Colored disc behind the body, tinted with the kind's color.")]
@@ -32,17 +35,23 @@ public sealed class EnemyHealth2D : MonoBehaviour
     private Coroutine flashRoutine;
     private float pendingDamage;
     private float nextDamageNumberAt;
+    private Transform orderBadge;
+    private SpriteRenderer orderPlate;
+    private TextMeshPro orderText;
+    private bool isNextInOrder;
 
     public float CurrentHealth => currentHealth;
     public float MaxHealth => maxHealth;
     public bool IsDead => currentHealth <= 0f;
     public EnemyKind Kind => kind;
+    public int KillOrder => killOrder;
 
     /// <summary>Raised once, just before the enemy is destroyed.</summary>
     public event Action<EnemyHealth2D> Died;
 
     private void Awake()
     {
+        maxHealth *= Difficulty.Current.enemyHealth;
         currentHealth = maxHealth;
         if (healthBarFill != null)
         {
@@ -54,6 +63,52 @@ public sealed class EnemyHealth2D : MonoBehaviour
 
         if (rim != null)
             rim.color = UiTheme.WithAlpha(UiTheme.Current.EnemyColor(kind), 0.55f);
+        if (killOrder > 0)
+            CreateOrderBadge();
+    }
+
+    private void Update()
+    {
+        if (orderBadge != null)
+            orderBadge.localScale = Vector3.one * (isNextInOrder ? 1f + 0.12f * Mathf.Abs(Mathf.Sin(Time.time * 5f)) : 1f);
+    }
+
+    /// <summary>Highlights the badge of the enemy that has to fall next on a kill-order level.</summary>
+    public void SetNextInOrder(bool isNext)
+    {
+        isNextInOrder = isNext;
+        if (orderBadge == null)
+            return;
+
+        UiTheme theme = UiTheme.Current;
+        orderPlate.color = isNext ? theme.gold : UiTheme.WithAlpha(theme.bar, 0.9f);
+        orderText.color = isNext ? theme.bar : theme.paper;
+    }
+
+    // A numbered plate above the enemy: its place in the kill order.
+    private void CreateOrderBadge()
+    {
+        orderBadge = new GameObject("Order Badge").transform;
+        orderBadge.SetParent(transform, false);
+        orderBadge.localPosition = new Vector3(0f, 1.05f, 0f);
+
+        orderPlate = new GameObject("Plate").AddComponent<SpriteRenderer>();
+        orderPlate.transform.SetParent(orderBadge, false);
+        orderPlate.transform.localScale = new Vector3(0.5f, 0.42f, 1f);
+        orderPlate.sprite = DebrisSprite;
+        orderPlate.sortingOrder = 14;
+
+        orderText = new GameObject("Number").AddComponent<TextMeshPro>();
+        orderText.transform.SetParent(orderBadge, false);
+        if (UiTheme.Current.titleFont != null)
+            orderText.font = UiTheme.Current.titleFont;
+        orderText.text = killOrder.ToString();
+        orderText.fontSize = 2.6f;
+        orderText.alignment = TextAlignmentOptions.Center;
+        orderText.rectTransform.sizeDelta = new Vector2(1f, 0.5f);
+        orderText.sortingOrder = 15;
+
+        SetNextInOrder(false);
     }
 
     public void TakeDamage(float amount)
