@@ -13,6 +13,8 @@ public sealed class LevelList : ScriptableObject
         public string title;
         [Tooltip("How many enemies of each EnemyKind the level has, for the level select preview.")]
         public int[] enemyCounts = new int[0];
+        [Tooltip("Shown as a tag on the level select card.")]
+        public bool killInOrder;
     }
 
     [SerializeField] private List<Entry> levels = new();

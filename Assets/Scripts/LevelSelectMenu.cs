@@ -13,7 +13,8 @@ public sealed class LevelSelectMenu : MonoBehaviour
 {
     private const int CardsPerRow = 5;
     private const float CardWidth = 312f;
-    private const float CardHeight = 560f;
+    private const float TallCardHeight = 560f;
+    private const float CompactCardHeight = 300f;
     private const float CardGap = 36f;
 
     [SerializeField] private LevelList levels;
@@ -21,6 +22,8 @@ public sealed class LevelSelectMenu : MonoBehaviour
     private bool unlockAll;
 
     private UiTheme theme;
+    private bool compact;
+    private float cardHeight;
     private GameObject screen;
 
     public bool IsOpen => screen != null && screen.activeSelf;
@@ -74,6 +77,9 @@ public sealed class LevelSelectMenu : MonoBehaviour
         BuildHeader(stage);
 
         int count = levels != null ? levels.Levels.Count : 0;
+        // More than one row of levels: shorter cards with a smaller preview so two rows fit.
+        compact = count > CardsPerRow;
+        cardHeight = compact ? CompactCardHeight : TallCardHeight;
         for (int i = 0; i < count; i++)
         {
             int column = i % CardsPerRow;
@@ -81,10 +87,11 @@ public sealed class LevelSelectMenu : MonoBehaviour
             int inRow = Mathf.Min(CardsPerRow, count - row * CardsPerRow);
             float rowWidth = inRow * CardWidth + (inRow - 1) * CardGap;
             float x = (1920f - rowWidth) / 2f + column * (CardWidth + CardGap);
-            BuildCard(stage, i, x, 210f + row * (CardHeight + CardGap));
+            BuildCard(stage, i, x, 210f + row * (cardHeight + CardGap));
         }
 
-        BuildLegend(stage);
+        int rowCount = Mathf.Max(1, Mathf.CeilToInt(count / (float)CardsPerRow));
+        BuildLegend(stage, 210f + rowCount * (cardHeight + CardGap) + 24f);
     }
 
     private void BuildHeader(RectTransform stage)
@@ -133,7 +140,7 @@ public sealed class LevelSelectMenu : MonoBehaviour
         {
             cardImage = RuntimeUi.CreateBox(stage, $"Level {index + 1} Card", theme.lockedCard, theme.borderDim, 4f, Color.clear, 0f);
         }
-        RuntimeUi.PlaceTopLeft(cardImage.rectTransform, x, y, CardWidth, CardHeight);
+        RuntimeUi.PlaceTopLeft(cardImage.rectTransform, x, y, CardWidth, cardHeight);
         Transform card = cardImage.transform;
         float inner = CardWidth - 54f;
 
@@ -151,14 +158,23 @@ public sealed class LevelSelectMenu : MonoBehaviour
         if (!unlocked)
         {
             UIPixelIcon padlock = RuntimeUi.CreateIcon(card, "Lock", PixelIcon.Lock, theme.border, theme.border);
-            RuntimeUi.PlaceTopLeft(padlock.rectTransform, (CardWidth - 72f) / 2f, 230f, 72f, 84f);
+            float lockSize = compact ? 0.6f : 1f;
+            RuntimeUi.PlaceTopLeft(padlock.rectTransform, (CardWidth - 72f * lockSize) / 2f, compact ? 128f : 230f, 72f * lockSize, 84f * lockSize);
             TextMeshProUGUI hint = RuntimeUi.CreateText(card, "Locked", 36, TextAlignmentOptions.Top, theme.muted);
             hint.text = $"Clear level {index}\nto unlock";
-            RuntimeUi.PlaceTopLeft(hint.rectTransform, 27f, 340f, inner, 90f);
+            RuntimeUi.PlaceTopLeft(hint.rectTransform, 27f, compact ? 190f : 340f, inner, 90f);
             return;
         }
 
-        BuildPreview(card, entry, inner);
+        if (entry.killInOrder)
+        {
+            TextMeshProUGUI tag = RuntimeUi.CreateText(card, "Order Tag", 14, TextAlignmentOptions.TopRight, theme.gold, UiFont.Title);
+            tag.text = "1-2-3";
+            RuntimeUi.PlaceTopLeft(tag.rectTransform, 27f, 28f, inner, 24f);
+        }
+
+        float previewHeight = compact ? 60f : 150f;
+        BuildPreview(card, entry, inner, previewHeight);
 
         int stars = LevelProgress.GetStars(entry.scene);
         for (int s = 0; s < 3; s++)
@@ -166,23 +182,23 @@ public sealed class LevelSelectMenu : MonoBehaviour
             bool earned = s < stars;
             UIPixelIcon star = RuntimeUi.CreateIcon(card, $"Star {s + 1}", PixelIcon.Star,
                 earned ? theme.gold : theme.borderDim, earned ? Color.white : theme.borderDim);
-            RuntimeUi.PlaceTopLeft(star.rectTransform, 27f + s * 54f, 330f, 42f, 42f);
+            RuntimeUi.PlaceTopLeft(star.rectTransform, 27f + s * 54f, compact ? 196f : 330f, 42f, 42f);
         }
 
         float best = LevelProgress.GetBestTime(entry.scene);
         TextMeshProUGUI bestLabel = RuntimeUi.CreateText(card, "Best Label", 36, TextAlignmentOptions.TopLeft, theme.muted);
         bestLabel.text = "BEST";
-        RuntimeUi.PlaceTopLeft(bestLabel.rectTransform, 27f, 400f, inner, 40f);
-        TextMeshProUGUI bestTime = RuntimeUi.CreateText(card, "Best Time", 36, TextAlignmentOptions.TopLeft, theme.paper);
+        RuntimeUi.PlaceTopLeft(bestLabel.rectTransform, 27f, compact ? 246f : 400f, inner, 40f);
+        TextMeshProUGUI bestTime = RuntimeUi.CreateText(card, "Best Time", 36, compact ? TextAlignmentOptions.TopRight : TextAlignmentOptions.TopLeft, theme.paper);
         bestTime.text = best >= 0f ? LevelManager.FormatTime(best) : "--:--.-";
-        RuntimeUi.PlaceTopLeft(bestTime.rectTransform, 27f, 438f, inner, 40f);
+        RuntimeUi.PlaceTopLeft(bestTime.rectTransform, 27f, compact ? 246f : 438f, inner, 40f);
     }
 
     // A mini arena: one colored square per enemy, so the card shows what the level throws at you.
-    private void BuildPreview(Transform card, LevelList.Entry entry, float inner)
+    private void BuildPreview(Transform card, LevelList.Entry entry, float inner, float height)
     {
         Image arena = RuntimeUi.CreateBox(card, "Preview", theme.floor, theme.stone, 6f, Color.clear, 0f);
-        RuntimeUi.PlaceTopLeft(arena.rectTransform, 27f, 150f, inner, 150f);
+        RuntimeUi.PlaceTopLeft(arena.rectTransform, 27f, compact ? 120f : 150f, inner, height);
 
         const float square = 18f;
         const float gap = 9f;
@@ -191,7 +207,7 @@ public sealed class LevelSelectMenu : MonoBehaviour
         if (entry.enemyCounts != null)
             foreach (int c in entry.enemyCounts) total += c;
         int rows = Mathf.Max(1, Mathf.CeilToInt(total / (float)perRow));
-        float top = (150f - rows * square - (rows - 1) * gap) / 2f;
+        float top = (height - rows * square - (rows - 1) * gap) / 2f;
 
         int placed = 0;
         for (int kind = 0; entry.enemyCounts != null && kind < entry.enemyCounts.Length; kind++)
@@ -208,25 +224,25 @@ public sealed class LevelSelectMenu : MonoBehaviour
         }
     }
 
-    private void BuildLegend(RectTransform stage)
+    private void BuildLegend(RectTransform stage, float top)
     {
         TextMeshProUGUI rules = RuntimeUi.CreateText(stage, "Star Rules", 36, TextAlignmentOptions.TopLeft, theme.soft);
         rules.text = "1 star: clear the level     2 stars: beat the par time     3 stars: beat the gold time";
-        RuntimeUi.PlaceTopLeft(rules.rectTransform, 108f, 830f, 1700f, 44f);
+        RuntimeUi.PlaceTopLeft(rules.rectTransform, 108f, top, 1700f, 44f);
 
         float x = 108f;
         foreach (EnemyKind kind in System.Enum.GetValues(typeof(EnemyKind)))
         {
             Image square = RuntimeUi.CreateImage(stage, $"{kind} Legend", theme.EnemyColor(kind));
-            RuntimeUi.PlaceTopLeft(square.rectTransform, x, 896f, 18f, 18f);
+            RuntimeUi.PlaceTopLeft(square.rectTransform, x, top + 66f, 18f, 18f);
             TextMeshProUGUI label = RuntimeUi.CreateText(stage, $"{kind} Label", 36, TextAlignmentOptions.TopLeft, theme.soft);
             label.text = kind.ToString().ToLowerInvariant();
-            RuntimeUi.PlaceTopLeft(label.rectTransform, x + 30f, 882f, 160f, 44f);
-            x += 190f;
+            RuntimeUi.PlaceTopLeft(label.rectTransform, x + 30f, top + 52f, 160f, 44f);
+            x += 175f;
         }
 
         TextMeshProUGUI keys = RuntimeUi.CreateText(stage, "Keys", 33, TextAlignmentOptions.TopRight, theme.muted);
         keys.text = "Click a level  ·  Esc back";
-        RuntimeUi.PlaceTopLeft(keys.rectTransform, 1212f, 884f, 600f, 44f);
+        RuntimeUi.PlaceTopLeft(keys.rectTransform, 1212f, top + 54f, 600f, 44f);
     }
 }

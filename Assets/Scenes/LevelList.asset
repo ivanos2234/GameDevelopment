@@ -15,16 +15,33 @@ MonoBehaviour:
   levels:
   - scene: Level_01
     title: First Swing
-    enemyCounts: 0500000000000000000000000000000000000000
+    enemyCounts: 050000000000000000000000000000000000000000000000
+    killInOrder: 0
   - scene: Level_02
     title: The Chase
-    enemyCounts: 0300000003000000000000000000000000000000
+    enemyCounts: 030000000300000000000000000000000000000000000000
+    killInOrder: 0
   - scene: Level_03
     title: Crossfire
-    enemyCounts: 0200000002000000030000000000000000000000
+    enemyCounts: 020000000200000003000000000000000000000000000000
+    killInOrder: 0
   - scene: Level_04
     title: The Arena
-    enemyCounts: 0300000004000000040000000000000000000000
+    enemyCounts: 030000000400000004000000000000000000000000000000
+    killInOrder: 0
   - scene: Level_05
     title: Bullet Storm
-    enemyCounts: 0000000002000000000000000300000002000000
+    enemyCounts: 000000000200000000000000030000000200000000000000
+    killInOrder: 0
+  - scene: Level_06
+    title: The Guardians
+    enemyCounts: 020000000000000000000000000000000000000003000000
+    killInOrder: 0
+  - scene: Level_07
+    title: Kill Order
+    enemyCounts: 040000000200000002000000000000000000000000000000
+    killInOrder: 1
+  - scene: Level_08
+    title: Final Exam
+    enemyCounts: 000000000200000002000000010000000100000002000000
+    killInOrder: 1

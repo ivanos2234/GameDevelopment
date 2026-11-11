@@ -8,6 +8,7 @@ public enum EnemyKind
     Shooter,
     Gunner,
     Turret,
+    Master,
 }
 
 /// <summary>
@@ -56,6 +57,9 @@ public sealed class UiTheme : ScriptableObject
     public Color shooter = Hex("F28C28");
     public Color gunner = Hex("4EA8FF");
     public Color turret = Hex("A970FF");
+    public Color master = Hex("E8B84A");
+    [Tooltip("The Master's shield: its body and the beam that ties it to the Master.")]
+    public Color guardian = Hex("3CCFBF");
 
     private static UiTheme current;
 
@@ -77,6 +81,7 @@ public sealed class UiTheme : ScriptableObject
         EnemyKind.Shooter => shooter,
         EnemyKind.Gunner => gunner,
         EnemyKind.Turret => turret,
+        EnemyKind.Master => master,
         _ => dummy,
     };
 

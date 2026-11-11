@@ -18,11 +18,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1008722474421144528, guid: 4b2c6a3d9ace4ed4ebb2d57329e2a492, type: 3}
       propertyPath: fleeDistance
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1008722474421144528, guid: 4b2c6a3d9ace4ed4ebb2d57329e2a492, type: 3}
       propertyPath: stopDistance
-      value: 6
+      value: 4.5
       objectReference: {fileID: 0}
     - target: {fileID: 1151796840872570534, guid: 4b2c6a3d9ace4ed4ebb2d57329e2a492, type: 3}
       propertyPath: m_Color.g
@@ -38,7 +38,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5175689789952396533, guid: 4b2c6a3d9ace4ed4ebb2d57329e2a492, type: 3}
       propertyPath: maxHealth
-      value: 70
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 5175689789952396533, guid: 4b2c6a3d9ace4ed4ebb2d57329e2a492, type: 3}
       propertyPath: deathBurstColor.b

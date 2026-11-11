@@ -46,6 +46,10 @@ public sealed class EnemyChase2D : MonoBehaviour
     private void Awake()
     {
         body = GetComponent<Rigidbody2D>();
+        float speed = Difficulty.Current.enemySpeed;
+        chaseSpeed *= speed;
+        retreatSpeed *= speed;
+        strafeSpeed *= speed;
 
         if (playerTarget == null)
         {

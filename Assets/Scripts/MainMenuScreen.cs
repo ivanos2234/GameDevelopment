@@ -18,6 +18,7 @@ public sealed class MainMenuScreen : MonoBehaviour
     private UiTheme theme;
     private RectTransform saw;
     private TextMeshProUGUI soundLabel;
+    private TextMeshProUGUI difficultyLabel;
     private Button playButton;
     private readonly List<Image> lanterns = new();
     private readonly List<RectTransform> leaves = new();
@@ -67,6 +68,14 @@ public sealed class MainMenuScreen : MonoBehaviour
     }
 
     private static string SoundText => Sfx.Muted ? "SOUND: OFF" : "SOUND: ON";
+
+    private static string DifficultyText => Difficulty.Level == DifficultyLevel.Easy ? "EASY" : "NORMAL";
+
+    private void ToggleDifficulty()
+    {
+        Difficulty.Level = Difficulty.Level == DifficultyLevel.Easy ? DifficultyLevel.Normal : DifficultyLevel.Easy;
+        difficultyLabel.text = DifficultyText;
+    }
 
     // ---------- construction ----------
 
@@ -232,20 +241,25 @@ public sealed class MainMenuScreen : MonoBehaviour
 
     private void BuildButtons(RectTransform stage)
     {
-        playButton = MenuButton(stage, "PLAY", true, menu.PlayGame, 0, out _);
+        playButton = MenuButton(stage, "PLAY", true, menu.PlayGame, 0, 570f, 0f, out _);
         UIPixelIcon arrow = RuntimeUi.CreateIcon(playButton.transform, "Arrow", PixelIcon.ArrowRight, theme.paper, theme.paper);
         RuntimeUi.Place(arrow.rectTransform, new Vector2(0f, 0.5f), new Vector2(36f, 0f), new Vector2(21f, 33f));
 
-        MenuButton(stage, "LEVELS", false, OpenLevels, 1, out _);
-        MenuButton(stage, SoundText, false, ToggleSound, 2, out soundLabel);
-        MenuButton(stage, "QUIT", false, menu.QuitGame, 3, out _);
+        MenuButton(stage, "LEVELS", false, OpenLevels, 1, 570f, 0f, out _);
+        MenuButton(stage, "TUTORIAL", false, menu.PlayTutorial, 2, 570f, 0f, out _);
+        MenuButton(stage, DifficultyText, false, ToggleDifficulty, 3, 279f, 0f, out difficultyLabel);
+        MenuButton(stage, SoundText, false, ToggleSound, 3, 279f, 291f, out soundLabel);
+        MenuButton(stage, "QUIT", false, menu.QuitGame, 4, 570f, 0f, out _);
+        difficultyLabel.margin = soundLabel.margin = new Vector4(0f, 0f, 0f, 0f);
+        difficultyLabel.alignment = soundLabel.alignment = TextAlignmentOptions.Center;
+        difficultyLabel.fontSize = soundLabel.fontSize = 21f;
     }
 
-    private Button MenuButton(RectTransform stage, string label, bool primary, UnityEngine.Events.UnityAction onClick, int index,
-        out TextMeshProUGUI text)
+    private Button MenuButton(RectTransform stage, string label, bool primary, UnityEngine.Events.UnityAction onClick, int row,
+        float width, float x, out TextMeshProUGUI text)
     {
         Button button = RuntimeUi.CreateButton(stage, label + " Button", label, primary, onClick, 30f, out text);
-        RuntimeUi.PlaceTopLeft((RectTransform)button.transform, 144f, 480f + index * 114f, 570f, 90f);
+        RuntimeUi.PlaceTopLeft((RectTransform)button.transform, 144f + x, 470f + row * 104f, width, 82f);
         text.alignment = TextAlignmentOptions.Left;
         text.margin = new Vector4(90f, 0f, 0f, 0f);
         return button;

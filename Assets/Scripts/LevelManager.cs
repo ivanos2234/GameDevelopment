@@ -25,6 +25,8 @@ public sealed class LevelManager : MonoBehaviour
     private string tip = "";
     [SerializeField, Min(0f), Tooltip("Seconds to clear the level. 0 = no time limit.")]
     private float timeLimit = 90f;
+    [SerializeField, Tooltip("Enemies with a kill order number must die in that order; killing one too early loses the level.")]
+    private bool killInOrder;
 
     [Header("Stars (clearing the level gives the first one)")]
     [SerializeField, Min(0f), Tooltip("Clear within this many seconds for 2 stars. 0 = two thirds of the time limit.")]
@@ -54,6 +56,13 @@ public sealed class LevelManager : MonoBehaviour
     public int EnemiesTotal { get; private set; }
     public int EnemiesRemaining => livingEnemies.Count;
     public PlayerHealth2D Player => player;
+    public bool KillInOrder => killInOrder;
+    /// <summary>Kill order number of the enemy that has to fall next, or 0 when none is left.</summary>
+    public int NextKillOrder { get; private set; }
+    /// <summary>Lets a script (the tutorial) hold the clock until it is time for it.</summary>
+    public bool TimerRunning { get; set; } = true;
+    /// <summary>While true, killing the last enemy does not clear the level (the tutorial adds enemies step by step).</summary>
+    public bool WinBlocked { get; set; }
     public bool HasNextLevel => !string.IsNullOrEmpty(nextLevelScene);
     public string LoseReason { get; private set; } = "";
     public float BestTime { get; private set; } = -1f;
@@ -72,6 +81,11 @@ public sealed class LevelManager : MonoBehaviour
         Time.timeScale = 1f;
         BestTime = LevelProgress.GetBestTime(SceneName);
 
+        Difficulty.Preset difficulty = Difficulty.Current;
+        timeLimit *= difficulty.timeLimit;
+        twoStarTime *= difficulty.timeLimit;
+        threeStarTime *= difficulty.timeLimit;
+
         if (player == null)
             player = FindFirstObjectByType<PlayerHealth2D>();
         if (player != null)
@@ -83,8 +97,9 @@ public sealed class LevelManager : MonoBehaviour
         foreach (EnemyHealth2D enemy in FindObjectsByType<EnemyHealth2D>(FindObjectsSortMode.None))
             RegisterEnemy(enemy);
 
-        if (EnemiesTotal == 0)
+        if (EnemiesTotal == 0 && !WinBlocked)
             Debug.LogWarning("This level has no enemies, so it can never be cleared.", this);
+        RefreshKillOrder();
     }
 
     private void OnDestroy()
@@ -106,7 +121,29 @@ public sealed class LevelManager : MonoBehaviour
 
         enemy.Died += OnEnemyDied;
         EnemiesTotal++;
+        RefreshKillOrder();
         EnemiesChanged?.Invoke();
+    }
+
+    /// <summary>Clears the level if every enemy is already gone, e.g. after <see cref="WinBlocked"/> is lifted.</summary>
+    public void TryFinish()
+    {
+        if (livingEnemies.Count == 0 && State == LevelState.Playing && !WinBlocked)
+            Win();
+    }
+
+    private void RefreshKillOrder()
+    {
+        if (!killInOrder)
+            return;
+
+        NextKillOrder = 0;
+        foreach (EnemyHealth2D enemy in livingEnemies)
+            if (enemy.KillOrder > 0 && (NextKillOrder == 0 || enemy.KillOrder < NextKillOrder))
+                NextKillOrder = enemy.KillOrder;
+
+        foreach (EnemyHealth2D enemy in livingEnemies)
+            enemy.SetNextInOrder(enemy.KillOrder > 0 && enemy.KillOrder == NextKillOrder);
     }
 
     private void Update()
@@ -114,6 +151,9 @@ public sealed class LevelManager : MonoBehaviour
         HandleKeyboard();
 
         if (State != LevelState.Playing)
+            return;
+
+        if (!TimerRunning)
             return;
 
         ElapsedTime += Time.deltaTime;
@@ -170,10 +210,17 @@ public sealed class LevelManager : MonoBehaviour
         if (!livingEnemies.Remove(enemy))
             return;
 
-        EnemiesChanged?.Invoke();
+        // Any enemy can be hit, but the numbered ones must fall in order.
+        if (killInOrder && enemy.KillOrder > 0 && enemy.KillOrder != NextKillOrder && State == LevelState.Playing)
+        {
+            EnemiesChanged?.Invoke();
+            Lose($"Wrong order! #{NextKillOrder} had to fall before #{enemy.KillOrder}.");
+            return;
+        }
 
-        if (livingEnemies.Count == 0 && State == LevelState.Playing)
-            Win();
+        RefreshKillOrder();
+        EnemiesChanged?.Invoke();
+        TryFinish();
     }
 
     private void OnPlayerDied()

@@ -41,6 +41,7 @@ public sealed class LevelHUD : MonoBehaviour
     private readonly UIPixelIcon[] timerStars = new UIPixelIcon[3];
     private TextMeshProUGUI enemiesText;
     private TextMeshProUGUI enemiesLabel;
+    private TextMeshProUGUI orderText;
     private readonly List<Image> enemyMarkers = new();
     private CanvasGroup introGroup;
     private CanvasGroup tipGroup;
@@ -164,6 +165,9 @@ public sealed class LevelHUD : MonoBehaviour
         }
         for (; i < enemyMarkers.Count; i++)
             enemyMarkers[i].gameObject.SetActive(false);
+
+        if (orderText != null)
+            orderText.text = level.NextKillOrder > 0 ? $"KILL ORDER   NEXT: <color=#{ColorUtility.ToHtmlStringRGB(theme.gold)}>#{level.NextKillOrder}</color>" : "KILL ORDER   DONE";
     }
 
     private void RefreshArrows()
@@ -315,8 +319,9 @@ public sealed class LevelHUD : MonoBehaviour
         RuntimeUi.Stretch(heartsRoot);
 
         TextMeshProUGUI title = RuntimeUi.CreateText(root, "Level Title", 33, TextAlignmentOptions.Top, theme.muted);
-        title.text = level.LevelTitle.ToUpperInvariant().Replace(":", " ·");
-        RuntimeUi.Place(title.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -8f), new Vector2(900f, 40f));
+        title.text = level.LevelTitle.ToUpperInvariant().Replace(":", " ·") +
+                     (Difficulty.Level == DifficultyLevel.Easy ? "  ·  EASY" : "");
+        RuntimeUi.Place(title.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -8f), new Vector2(1100f, 40f));
 
         timerText = RuntimeUi.CreateText(root, "Timer", 36, TextAlignmentOptions.Center, theme.paper, UiFont.Title);
         RuntimeUi.Place(timerText.rectTransform, new Vector2(0.5f, 1f), new Vector2(-30f, -50f), new Vector2(320f, 48f));
@@ -338,6 +343,15 @@ public sealed class LevelHUD : MonoBehaviour
         enemiesLabel = RuntimeUi.CreateText(root, "Enemies Label", 39, TextAlignmentOptions.Right, theme.muted);
         enemiesLabel.text = "ENEMIES";
         RuntimeUi.Place(enemiesLabel.rectTransform, new Vector2(1f, 1f), new Vector2(-260f, -34f), new Vector2(180f, 46f));
+
+        if (level.KillInOrder)
+        {
+            Image orderBox = RuntimeUi.CreateBox(root, "Kill Order", theme.bar, theme.gold, 4f, Color.clear, 0f);
+            RuntimeUi.Place(orderBox.rectTransform, new Vector2(1f, 1f), new Vector2(-40f, -BarHeight - 120f), new Vector2(460f, 62f));
+            orderBox.raycastTarget = false;
+            orderText = RuntimeUi.CreateText(orderBox.transform, "Text", 39, TextAlignmentOptions.Center, theme.paper);
+            RuntimeUi.Stretch(orderText.rectTransform);
+        }
 
         enemiesText = RuntimeUi.CreateText(root, "Enemies", 33, TextAlignmentOptions.Right, theme.paper, UiFont.Title);
         RuntimeUi.Place(enemiesText.rectTransform, new Vector2(1f, 1f), new Vector2(-48f, -36f), new Vector2(300f, 44f));
@@ -369,7 +383,9 @@ public sealed class LevelHUD : MonoBehaviour
         UiTextShadow.Add(title, theme.red, new Vector2(7f, -7f));
 
         TextMeshProUGUI goal = RuntimeUi.CreateText(introObject.transform, "Objective", 48, TextAlignmentOptions.Center, theme.gold);
-        goal.text = level.HasTimeLimit
+        // The tutorial holds its clock until the last step, so it does not promise a time yet.
+        bool timedFromStart = level.HasTimeLimit && GetComponent<TutorialDirector>() == null;
+        goal.text = timedFromStart
             ? $"{level.Objective} within {Mathf.RoundToInt(level.TimeLimit)} seconds"
             : level.Objective;
         RuntimeUi.Place(goal.rectTransform, new Vector2(0.5f, 0f), Vector2.zero, new Vector2(1800f, 70f));
