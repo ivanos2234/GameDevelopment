@@ -20,8 +20,13 @@ public sealed class LevelSelectMenu : MonoBehaviour
     [SerializeField] private LevelList levels;
     [SerializeField, Tooltip("Open every level regardless of progress, handy while testing.")]
     private bool unlockAll;
+    [SerializeField, Tooltip("Show the TEST: UNLOCK ALL button (and the U key). Turn off for a release build.")]
+    private bool showTestUnlock = true;
+
+    private const string UnlockAllKey = "Debug.UnlockAll";
 
     private UiTheme theme;
+    private RectTransform canvasRoot;
     private bool compact;
     private float cardHeight;
     private GameObject screen;
@@ -38,8 +43,27 @@ public sealed class LevelSelectMenu : MonoBehaviour
 
     private void Update()
     {
-        if (IsOpen && Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
+        if (!IsOpen || Keyboard.current == null)
+            return;
+
+        if (Keyboard.current.escapeKey.wasPressedThisFrame)
             Close();
+        else if (showTestUnlock && Keyboard.current.uKey.wasPressedThisFrame)
+            ToggleTestUnlock();
+    }
+
+    private bool AllUnlocked => unlockAll || (showTestUnlock && PlayerPrefs.GetInt(UnlockAllKey, 0) == 1);
+
+    /// <summary>Testing aid: opens every level (or locks them again) and remembers the choice.</summary>
+    public void ToggleTestUnlock()
+    {
+        PlayerPrefs.SetInt(UnlockAllKey, PlayerPrefs.GetInt(UnlockAllKey, 0) == 1 ? 0 : 1);
+        PlayerPrefs.Save();
+
+        // Rebuild the cards with the new lock state and stay open.
+        Destroy(canvasRoot.gameObject);
+        BuildUi();
+        screen.SetActive(true);
     }
 
     public void Open()
@@ -64,6 +88,7 @@ public sealed class LevelSelectMenu : MonoBehaviour
     private void BuildUi()
     {
         RectTransform root = RuntimeUi.CreateCanvas(transform, "Level Select Canvas", 50);
+        canvasRoot = root;
         Image background = RuntimeUi.CreateImage(root, "Level Select", theme.night);
         RuntimeUi.Stretch(background.rectTransform);
         screen = background.gameObject;
@@ -128,7 +153,7 @@ public sealed class LevelSelectMenu : MonoBehaviour
     private void BuildCard(RectTransform stage, int index, float x, float y)
     {
         LevelList.Entry entry = levels.Levels[index];
-        bool unlocked = unlockAll || levels.IsUnlocked(index);
+        bool unlocked = AllUnlocked || levels.IsUnlocked(index);
 
         Image cardImage;
         if (unlocked)
@@ -239,6 +264,15 @@ public sealed class LevelSelectMenu : MonoBehaviour
             label.text = kind.ToString().ToLowerInvariant();
             RuntimeUi.PlaceTopLeft(label.rectTransform, x + 30f, top + 52f, 160f, 44f);
             x += 175f;
+        }
+
+        if (showTestUnlock)
+        {
+            bool all = AllUnlocked;
+            Button test = RuntimeUi.CreateButton(stage, "Test Unlock Button", all ? "TEST: LOCK AGAIN (U)" : "TEST: UNLOCK ALL (U)",
+                false, ToggleTestUnlock, 16f, out TextMeshProUGUI testLabel);
+            RuntimeUi.PlaceTopLeft((RectTransform)test.transform, 1392f, top + 112f, 420f, 60f);
+            testLabel.color = theme.gold;
         }
 
         TextMeshProUGUI keys = RuntimeUi.CreateText(stage, "Keys", 33, TextAlignmentOptions.TopRight, theme.muted);
