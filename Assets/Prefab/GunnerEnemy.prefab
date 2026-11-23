@@ -22,7 +22,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1008722474421144528, guid: 4b2c6a3d9ace4ed4ebb2d57329e2a492, type: 3}
       propertyPath: stopDistance
-      value: 4.5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1151796840872570534, guid: 4b2c6a3d9ace4ed4ebb2d57329e2a492, type: 3}
       propertyPath: m_Color.g
@@ -38,7 +38,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5175689789952396533, guid: 4b2c6a3d9ace4ed4ebb2d57329e2a492, type: 3}
       propertyPath: maxHealth
-      value: 40
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 5175689789952396533, guid: 4b2c6a3d9ace4ed4ebb2d57329e2a492, type: 3}
       propertyPath: deathBurstColor.b
@@ -124,7 +124,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 8682799756402642424, guid: ffba5da338cbf41e3824a0e92b12ea97, type: 3}
   playerTarget: {fileID: 0}
   range: 10
-  fireInterval: 2.4
+  fireInterval: 4.5
   firstShotDelay: 1.5
   projectileSpeed: 5.5
   muzzleOffset: 0.6

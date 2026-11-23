@@ -35,6 +35,6 @@ public sealed class EnemyContactDamage2D : MonoBehaviour
 
         ColliderDistance2D gap = Physics2D.Distance(ownCollider, playerCollider);
         if (gap.isValid && gap.distance <= reach)
-            player.TakeDamage(damage, transform.position);
+            player.TakeDamage(damage, transform.position, gameObject);
     }
 }

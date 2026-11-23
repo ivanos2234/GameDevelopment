@@ -24,6 +24,8 @@ public sealed class PlayerHealth2D : MonoBehaviour
     /// <summary>Raised with (current, max) whenever the number of hearts changes.</summary>
     public event Action<int, int> HeartsChanged;
     public event Action Died;
+    /// <summary>Raised with (hearts lost, what hit the player) when a hit lands, before a fatal hit kills. The source may be null.</summary>
+    public event Action<int, GameObject> Damaged;
 
     private void Awake()
     {
@@ -37,11 +39,15 @@ public sealed class PlayerHealth2D : MonoBehaviour
     }
 
     /// <summary>Removes hearts unless the player is still invulnerable from the previous hit.</summary>
-    public bool TakeDamage(int amount, Vector2 sourcePosition)
+    public bool TakeDamage(int amount, Vector2 sourcePosition) => TakeDamage(amount, sourcePosition, null);
+
+    /// <summary>Removes hearts unless the player is still invulnerable; <paramref name="source"/> is what hit them (for the log).</summary>
+    public bool TakeDamage(int amount, Vector2 sourcePosition, GameObject source)
     {
         if (amount <= 0 || IsDead || Time.time < invulnerableUntil)
             return false;
 
+        int heartsBefore = CurrentHearts;
         CurrentHearts = Mathf.Max(0, CurrentHearts - amount);
         invulnerableUntil = Time.time + invulnerabilityDuration;
 
@@ -51,6 +57,7 @@ public sealed class PlayerHealth2D : MonoBehaviour
 
         Sfx.Play(SfxKind.PlayerHurt);
         HeartsChanged?.Invoke(CurrentHearts, maxHearts);
+        Damaged?.Invoke(heartsBefore - CurrentHearts, source);
 
         if (IsDead)
             Die();

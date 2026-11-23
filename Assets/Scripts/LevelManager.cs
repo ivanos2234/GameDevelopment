@@ -72,6 +72,8 @@ public sealed class LevelManager : MonoBehaviour
     public float ThreeStarTime => threeStarTime > 0f ? threeStarTime : Mathf.Round(timeLimit * 0.4f);
 
     public event Action StateChanged;
+    /// <summary>Raised with the scene about to load when a level restarts, moves on or returns to the menu.</summary>
+    public static event Action<string> SceneLeaving;
     public event Action EnemiesChanged;
 
     private static string SceneName => SceneManager.GetActiveScene().name;
@@ -262,6 +264,7 @@ public sealed class LevelManager : MonoBehaviour
 
     private static void LoadScene(string sceneName)
     {
+        SceneLeaving?.Invoke(sceneName);
         Time.timeScale = 1f;
         SceneManager.LoadScene(sceneName);
     }
