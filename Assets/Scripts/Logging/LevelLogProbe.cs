@@ -227,8 +227,9 @@ public sealed class LevelLogProbe : MonoBehaviour
     {
         if (!started || ended)
             return;
-        ended = true;
         CountRealTime();
+        RecordPendingKills();
+        ended = true;
 
         scratchEnemies.Clear();
         scratchEnemies.AddRange(openPasses.Keys);
@@ -383,9 +384,24 @@ public sealed class LevelLogProbe : MonoBehaviour
     {
         enemy.Died -= OnEnemyDied;
         Hazard hazard = FindHazard(enemy);
-        if (hazard == null || !hazard.alive || ended)
-            return;
+        if (hazard != null && hazard.alive && started && !ended)
+            RecordKill(enemy, hazard);
+    }
 
+    // LevelManager also listens to Died and may end the level (last enemy, wrong order) before this probe hears
+    // about the death, so EndLevel records enemies that have just died but were not counted yet.
+    private void RecordPendingKills()
+    {
+        scratchEnemies.Clear();
+        foreach (KeyValuePair<Object, Hazard> pair in hazardsByObject)
+            if (pair.Key is EnemyHealth2D enemy && pair.Value.alive && enemy.IsDead) // health is a plain field, safe after Destroy
+                scratchEnemies.Add(enemy);
+        foreach (EnemyHealth2D enemy in scratchEnemies)
+            RecordKill(enemy, FindHazard(enemy));
+    }
+
+    private void RecordKill(EnemyHealth2D enemy, Hazard hazard)
+    {
         // Judge the kill order before this enemy leaves the list of living ones.
         object orderOk = "-";
         if (level.KillInOrder && hazard.killOrder > 0)
@@ -407,7 +423,7 @@ public sealed class LevelLogProbe : MonoBehaviour
         kills++;
 
         object timeToKill = hazard.firstHitAt >= 0f ? activeTime - hazard.firstHitAt : (object)null;
-        object range = playerBody != null
+        object range = playerBody != null && enemy != null
             ? Vector2.Distance(playerBody.position, enemy.transform.position)
             : (object)null;
         logger.Write("kill", hazard.id, hazard.kind, timeToKill, hazard.passes, range, orderOk);
