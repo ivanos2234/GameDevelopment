@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -30,6 +31,9 @@ public sealed class SawImpactDamage2D : MonoBehaviour
     public float LastImpactSpeed { get; private set; }
     public float LastDamageDealt { get; private set; }
     public float LastHitTime { get; private set; } = -1f;
+
+    /// <summary>Raised for every damage tick, just before it is applied: (enemy, damage dealt, saw spin in deg/s, impact speed).</summary>
+    public event Action<EnemyHealth2D, float, float, float> DamagedEnemy;
 
     private void Awake()
     {
@@ -115,9 +119,11 @@ public sealed class SawImpactDamage2D : MonoBehaviour
 
         float damage = damagePerSecond * damageTickInterval;
         Vector2 hitPoint = other.ClosestPoint(sawBody.worldCenterOfMass);
+        float impactSpeed = sawBody.GetPointVelocity(hitPoint).magnitude;
+        DamagedEnemy?.Invoke(enemy, Mathf.Min(damage, enemy.CurrentHealth), sawBody.angularVelocity, impactSpeed);
         enemy.TakeDamage(damage, hitPoint);
 
-        LastImpactSpeed = sawBody.GetPointVelocity(hitPoint).magnitude;
+        LastImpactSpeed = impactSpeed;
         LastDamageDealt = damage;
         LastHitTime = Time.time;
         nextDamageTime[enemy] = Time.time + damageTickInterval;

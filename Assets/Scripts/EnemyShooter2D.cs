@@ -42,6 +42,7 @@ public sealed class EnemyShooter2D : MonoBehaviour
     [SerializeField, Min(1f)] private float windUpScale = 1.25f;
 
     private PlayerHealth2D playerHealth;
+    private EnemyHealth2D owner;
     private Vector3 visualBaseScale;
     private float nextShotAt;
     private float ringAngle;
@@ -63,6 +64,8 @@ public sealed class EnemyShooter2D : MonoBehaviour
 
         if (telegraphVisual != null)
             visualBaseScale = telegraphVisual.localScale;
+
+        owner = GetComponentInParent<EnemyHealth2D>();
     }
 
     private void OnEnable()
@@ -140,7 +143,7 @@ public sealed class EnemyShooter2D : MonoBehaviour
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
         EnemyProjectile2D shot = Instantiate(projectilePrefab, spawn, Quaternion.Euler(0f, 0f, angle));
-        shot.Launch(direction * projectileSpeed);
+        shot.Launch(direction * projectileSpeed, owner);
     }
 
     private static Vector2 Rotate(Vector2 direction, float degrees)
