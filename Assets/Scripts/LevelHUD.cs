@@ -380,6 +380,14 @@ public sealed class LevelHUD : MonoBehaviour
         TextMeshProUGUI title = RuntimeUi.CreateText(introObject.transform, "Title", 60, TextAlignmentOptions.Center, theme.paper, UiFont.Title);
         title.text = level.LevelTitle.ToUpperInvariant();
         RuntimeUi.Place(title.rectTransform, new Vector2(0.5f, 1f), Vector2.zero, new Vector2(1800f, 110f));
+
+        LevelAmbience ambience = FindFirstObjectByType<LevelAmbience>();
+        if (ambience != null && !string.IsNullOrEmpty(ambience.ThemeName))
+        {
+            TextMeshProUGUI themeLine = RuntimeUi.CreateText(introObject.transform, "Theme", 42, TextAlignmentOptions.Center, theme.soft);
+            themeLine.text = $"\u2014 {ambience.ThemeName} \u2014";
+            RuntimeUi.Place(themeLine.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, 64f), new Vector2(1800f, 56f));
+        }
         UiTextShadow.Add(title, theme.red, new Vector2(7f, -7f));
 
         TextMeshProUGUI goal = RuntimeUi.CreateText(introObject.transform, "Objective", 48, TextAlignmentOptions.Center, theme.gold);

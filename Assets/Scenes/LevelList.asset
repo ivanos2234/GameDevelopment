@@ -17,31 +17,39 @@ MonoBehaviour:
     title: First Swing
     enemyCounts: 050000000000000000000000000000000000000000000000
     killInOrder: 0
+    themeColor: {r: 0.32866177, g: 0.3187941, b: 0.30494118, a: 1}
   - scene: Level_02
     title: The Chase
     enemyCounts: 030000000300000000000000000000000000000000000000
     killInOrder: 0
+    themeColor: {r: 0.21841177, g: 0.3030441, b: 0.23564117, a: 1}
   - scene: Level_03
     title: Crossfire
     enemyCounts: 020000000200000003000000000000000000000000000000
     killInOrder: 0
+    themeColor: {r: 0.20266175, g: 0.2400441, b: 0.32069117, a: 1}
   - scene: Level_04
     title: The Arena
     enemyCounts: 030000000400000004000000000000000000000000000000
     killInOrder: 0
+    themeColor: {r: 0.34441176, g: 0.22429413, b: 0.17264117, a: 1}
   - scene: Level_05
     title: Bullet Storm
     enemyCounts: 000000000200000000000000030000000200000000000000
     killInOrder: 0
+    themeColor: {r: 0.29716176, g: 0.3250941, b: 0.36794117, a: 1}
   - scene: Level_06
     title: The Guardians
     enemyCounts: 020000000000000000000000000000000000000003000000
     killInOrder: 0
+    themeColor: {r: 0.22471176, g: 0.2085441, b: 0.33644116, a: 1}
   - scene: Level_07
     title: Kill Order
     enemyCounts: 040000000200000002000000000000000000000000000000
     killInOrder: 1
+    themeColor: {r: 0.20266175, g: 0.2085441, b: 0.24824117, a: 1}
   - scene: Level_08
     title: Final Exam
     enemyCounts: 000000000200000002000000010000000100000002000000
     killInOrder: 1
+    themeColor: {r: 0.29716176, g: 0.19279411, b: 0.18524116, a: 1}

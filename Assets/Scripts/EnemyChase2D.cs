@@ -1,7 +1,9 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Chases the player, slides around walls in the way, and briefly backs away when the player charges at close range.
+/// Chases the player along a path around walls and standing enemies (see <see cref="NavGrid2D"/>), slides past
+/// anything still in the way, and briefly backs away when the player charges at close range.
 /// Ranged enemies can instead hold their distance and circle the player (see Keep distance).
 /// </summary>
 [RequireComponent(typeof(Rigidbody2D))]
@@ -33,6 +35,14 @@ public sealed class EnemyChase2D : MonoBehaviour
     [SerializeField, Min(0f)] private float avoidLookAhead = 1.2f;
     [SerializeField, Min(0.05f)] private float avoidRadius = 0.4f;
     [SerializeField, Min(0f)] private float avoidSideHoldTime = 1f;
+    [SerializeField, Tooltip("Also steer around other enemies, not only walls.")]
+    private bool avoidEnemies = true;
+
+    [Header("Pathfinding")]
+    [SerializeField, Tooltip("Find a way around walls and standing enemies instead of heading straight for the player.")]
+    private bool usePathfinding = true;
+    [SerializeField, Min(0.1f)] private float repathInterval = 0.4f;
+    [SerializeField, Min(0.05f)] private float waypointReach = 0.35f;
 
     private Rigidbody2D body;
     private Rigidbody2D playerBody;
@@ -42,6 +52,10 @@ public sealed class EnemyChase2D : MonoBehaviour
     private float keepAvoidSideUntil;
     private int strafeSide = 1;
     private float switchStrafeAt;
+    private readonly List<Vector2> path = new();
+    private int pathIndex;
+    private float repathAt;
+    private readonly RaycastHit2D[] castHits = new RaycastHit2D[8];
 
     private void Awake()
     {
@@ -60,6 +74,11 @@ public sealed class EnemyChase2D : MonoBehaviour
 
         if (playerTarget != null)
             playerBody = playerTarget.GetComponent<Rigidbody2D>();
+
+        int enemyLayer = LayerMask.NameToLayer("Enemy");
+        if (avoidEnemies && enemyLayer >= 0)
+            obstacleLayers |= 1 << enemyLayer;
+        repathAt = Random.Range(0f, repathInterval);
     }
 
     private void FixedUpdate()
@@ -106,7 +125,7 @@ public sealed class EnemyChase2D : MonoBehaviour
         }
         else if (distance > stopDistance)
         {
-            desiredVelocity = SteerAroundWalls(directionToPlayer) * chaseSpeed;
+            desiredVelocity = SteerAroundWalls(ChaseDirection(directionToPlayer)) * chaseSpeed;
         }
         else if (strafeSpeed > 0f)
         {
@@ -129,7 +148,7 @@ public sealed class EnemyChase2D : MonoBehaviour
         }
 
         Vector2 side = new Vector2(-directionToPlayer.y, directionToPlayer.x) * strafeSide;
-        if (Physics2D.CircleCast(body.position, avoidRadius, side, avoidLookAhead, obstacleLayers).collider != null)
+        if (CastObstacle(side, out _))
         {
             strafeSide = -strafeSide;
             side = -side;
@@ -146,8 +165,7 @@ public sealed class EnemyChase2D : MonoBehaviour
         if (avoidLookAhead <= 0f)
             return direction;
 
-        RaycastHit2D hit = Physics2D.CircleCast(body.position, avoidRadius, direction, avoidLookAhead, obstacleLayers);
-        if (hit.collider == null)
+        if (!CastObstacle(direction, out RaycastHit2D hit))
             return direction;
 
         Vector2 tangent = new Vector2(-hit.normal.y, hit.normal.x);
@@ -159,5 +177,61 @@ public sealed class EnemyChase2D : MonoBehaviour
         keepAvoidSideUntil = Time.time + avoidSideHoldTime;
 
         return tangent * avoidSide;
+    }
+
+    // Heads for the next waypoint of a path around walls and standing enemies; straight at the player when the way is clear.
+    private Vector2 ChaseDirection(Vector2 directionToPlayer)
+    {
+        if (!usePathfinding)
+            return directionToPlayer;
+
+        NavGrid2D grid = NavGrid2D.Instance;
+        Vector2 position = body.position;
+        Vector2 target = playerTarget.position;
+        if (grid.IsClear(position, target))
+        {
+            path.Clear();
+            return directionToPlayer;
+        }
+
+        if (Time.time >= repathAt || pathIndex >= path.Count)
+        {
+            repathAt = Time.time + repathInterval * Random.Range(0.8f, 1.2f);
+            grid.FindPath(position, target, path);
+            pathIndex = 0;
+        }
+
+        // Skip waypoints already reached, and cut corners when the next one is in plain view.
+        while (pathIndex < path.Count - 1 &&
+               (Vector2.Distance(position, path[pathIndex]) < waypointReach || grid.IsClear(position, path[pathIndex + 1])))
+            pathIndex++;
+
+        if (pathIndex < path.Count)
+        {
+            Vector2 toWaypoint = path[pathIndex] - position;
+            if (toWaypoint.sqrMagnitude > 0.0001f)
+                return toWaypoint.normalized;
+        }
+        return directionToPlayer;
+    }
+
+    // The nearest solid thing in the way, ignoring this enemy's own collider.
+    private bool CastObstacle(Vector2 direction, out RaycastHit2D nearest)
+    {
+        nearest = default;
+        var filter = new ContactFilter2D { useLayerMask = true, layerMask = obstacleLayers, useTriggers = false };
+        int count = Physics2D.CircleCast(body.position, avoidRadius, direction, filter, castHits, avoidLookAhead);
+        bool found = false;
+        for (int i = 0; i < count; i++)
+        {
+            if (castHits[i].rigidbody == body || castHits[i].distance <= 0f)
+                continue;
+            if (!found || castHits[i].distance < nearest.distance)
+            {
+                nearest = castHits[i];
+                found = true;
+            }
+        }
+        return found;
     }
 }

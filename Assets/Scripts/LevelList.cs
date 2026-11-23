@@ -15,6 +15,8 @@ public sealed class LevelList : ScriptableObject
         public int[] enemyCounts = new int[0];
         [Tooltip("Shown as a tag on the level select card.")]
         public bool killInOrder;
+        [Tooltip("Floor color of the level's theme, used for the level select preview.")]
+        public Color themeColor = new(0.118f, 0.141f, 0.212f, 1f);
     }
 
     [SerializeField] private List<Entry> levels = new();

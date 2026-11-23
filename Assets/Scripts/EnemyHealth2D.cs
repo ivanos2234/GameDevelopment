@@ -132,6 +132,7 @@ public sealed class EnemyHealth2D : MonoBehaviour
             DeathBurst2D.Spawn(transform.position, DebrisSprite, UiTheme.Current.EnemyColor(kind), 14, 5f, 0.6f);
             ShowDamageNumber(dealt, hitPoint, true);
             Died?.Invoke(this);
+            NavGrid2D.MarkDirty();
             Destroy(gameObject);
             return;
         }

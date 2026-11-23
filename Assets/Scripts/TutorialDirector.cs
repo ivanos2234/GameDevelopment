@@ -52,6 +52,9 @@ public sealed class TutorialDirector : MonoBehaviour
     private void Start()
     {
         player = level.Player != null ? level.Player.transform : null;
+        // The dojo is a safe place to learn: nothing hurts here.
+        if (level.Player != null)
+            level.Player.Invulnerable = true;
         if (player != null)
             lastPlayerPosition = player.position;
 
@@ -167,7 +170,7 @@ public sealed class TutorialDirector : MonoBehaviour
                 break;
 
             case Step.Hearts:
-                Say("HEARTS", "Enemies hurt you on touch and their shots hurt too. You have 5 hearts:\nlose them all and it's game over. Heart pickups heal you.",
+                Say("HEARTS", "Outside the dojo, enemies hurt you on touch and so do their shots. You have\n5 hearts: lose them all and it's game over. Heart pickups heal you.",
                     "Press Enter to continue");
                 break;
 

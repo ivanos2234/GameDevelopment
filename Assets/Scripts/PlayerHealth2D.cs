@@ -20,6 +20,8 @@ public sealed class PlayerHealth2D : MonoBehaviour
     public int MaxHearts => maxHearts;
     public int CurrentHearts { get; private set; }
     public bool IsDead => CurrentHearts <= 0;
+    /// <summary>While true nothing can hurt the player (used by the tutorial).</summary>
+    public bool Invulnerable { get; set; }
 
     /// <summary>Raised with (current, max) whenever the number of hearts changes.</summary>
     public event Action<int, int> HeartsChanged;
@@ -44,7 +46,7 @@ public sealed class PlayerHealth2D : MonoBehaviour
     /// <summary>Removes hearts unless the player is still invulnerable; <paramref name="source"/> is what hit them (for the log).</summary>
     public bool TakeDamage(int amount, Vector2 sourcePosition, GameObject source)
     {
-        if (amount <= 0 || IsDead || Time.time < invulnerableUntil)
+        if (amount <= 0 || IsDead || Invulnerable || Time.time < invulnerableUntil)
             return false;
 
         int heartsBefore = CurrentHearts;
